@@ -1,0 +1,317 @@
+<%- include('../layouts/userHeader.ejs') %>
+
+	<!-- Header -->
+	<header class="header-v4">
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						Free shipping for standard order over ₹ 1000
+					</div>
+					<div class="right-top-bar flex-w h-full">
+						<a href="/profile" class="flex-c-m trans-04 p-lr-25">
+							My Account
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
+				<nav class="limiter-menu-desktop container">
+					<!-- Logo desktop -->
+					<a href="/" class="logo">
+						<img src="assets/images/icons/logo-01.png" alt="IMG-LOGO">
+					</a>
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li>
+								<a href="/">Home</a>
+							</li>
+							<li>
+								<a href="/shop">Shop</a>
+							</li>
+							<li>
+								<a href="/cart">Cart</a>
+							</li>
+							<li class="active-menu">
+								<a href="/contact">Contact</a>
+							</li>
+							<li>
+								<a href="/profile">My Account</a>
+								<% if(userData==null){ %>
+									<ul class="sub-menu">
+										<li><a href="/login">Login</a></li>
+										<li><a href="/signup">Register</a></li>
+									</ul>
+									<% } else { %>
+										<ul class="sub-menu">
+											<li><a href="/profile">Profile</a></li>
+											<li><a href="/orders">Orders</a></li>
+											<li><a href="/logout">Logout</a></li>
+										</ul>
+										<% } %>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<% if(!userCart ){ %>
+							<a href="/cart"
+								class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+								data-notify="0">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
+							<% } else { %>
+								<a href="/cart"
+									class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+									data-notify="<%= userCart.products.length %>">
+									<i class="zmdi zmdi-shopping-cart"></i>
+								</a>
+								<% } %>
+									<% if(!wishlist ){ %>
+										<a href="/wishlist"
+											class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+											data-notify="0">
+											<i class="zmdi zmdi-favorite-outline"></i>
+										</a>
+										<% } else { %>
+											<a href="/wishlist"
+												class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+												data-notify="<%= wishlist.products.length %>">
+												<i class="zmdi zmdi-favorite-outline"></i>
+											</a>
+											<% } %>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Header Mobile -->
+		<div class="wrap-header-mobile">
+			<!-- Logo moblie -->
+			<div class="logo-mobile">
+				<a href="/"><img src="assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+			</div>
+
+			<!-- Icon header -->
+			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				<% if(!userCart ){ %>
+					<a href="/cart">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+							data-notify="0">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+					</a>
+					<% } else { %>
+						<a href="/cart">
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+								data-notify="<%= userCart.products.length %>">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</div>
+						</a>
+						<% } %>
+							<% if(!wishlist ){ %>
+								<a href="/wishlist"
+									class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+									data-notify="0">
+									<i class="zmdi zmdi-favorite-outline"></i>
+								</a>
+								<% } else { %>
+									<a href="/wishlist"
+										class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+										data-notify="<%= wishlist.products.length %>">
+										<i class="zmdi zmdi-favorite-outline"></i>
+									</a>
+									<% } %>
+			</div>
+
+			<!-- Button show menu -->
+			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</div>
+		</div>
+
+		<!-- Menu Mobile -->
+		<div class="menu-mobile">
+			<ul class="topbar-mobile">
+				<li>
+					<div class="left-top-bar">
+						Free shipping for standard order over Rs 1000
+					</div>
+				</li>
+			</ul>
+			<ul class="main-menu-m">
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/shop">Shop</a>
+				</li>
+				<li>
+					<a href="/cart">Cart</a>
+				</li>
+				<li>
+					<a href="/contact">Contact</a>
+				</li>
+				<li>
+					<a href="/profile">My Account</a>
+					<% if(userData==null){ %>
+						<ul class="sub-menu-m">
+							<li><a href="/login">Login</a></li>
+							<li><a href="/signup">Register</a></li>
+						</ul>
+						<span class="arrow-main-menu-m">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+						<% } else { %>
+							<ul class="sub-menu-m">
+								<li><a href="/profile">Profile</a></li>
+								<li><a href="/orders">Orders</a></li>
+								<li><a href="/logout">Logout</a></li>
+							</ul>
+							<span class="arrow-main-menu-m">
+								<i class="fa fa-angle-right" aria-hidden="true"></i>
+							</span>
+							<% } %>
+				</li>
+			</ul>
+		</div>
+	</header>
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/bg-01.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Contact Us
+		</h2>
+	</section>
+
+
+	<!-- Content page -->
+	<section class="bg0 p-t-50 p-b-80">
+		<div class="container">
+			<div class="flex-w flex-tr">
+				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+					<form action="" method="post" id="myForm">
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+							Send Us A Message
+						</h4>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email"
+								placeholder="Your Email Address" required>
+							<img class="how-pos4 pointer-none" src="assets/images/icons/icon-email.png" alt="ICON">
+						</div>
+
+						<div class="bor8 m-b-30">
+							<textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="msg"
+								placeholder="How Can We Help?" required></textarea>
+						</div>
+
+						<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer"
+							type="submit">
+							Submit
+						</button>
+					</form>
+					<div class="text-center" id="successMsg" style="display: none;">
+						<img src="/assets/images/icons/tick-inside-circle.png" alt="" width="60px">
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+							Thank you for submitting your message. We will contact you shortly.
+						</h4>
+						<h4 class="mtext-105 cl2 txt-center p-b-30">Keep Shopping With Us<a href="/shop"
+								class="cart-btn-transform m-3">Click Here</a></h4>
+					</div>
+
+
+				</div>
+
+				<div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
+					<div class="flex-w w-full p-b-42">
+						<span class="fs-18 cl5 txt-center size-211">
+							<span class="lnr lnr-map-marker"></span>
+						</span>
+
+						<div class="size-212 p-t-2">
+							<span class="mtext-110 cl2">
+								Address
+							</span>
+
+							<p class="stext-115 cl6 size-213 p-t-18">
+								Fashion Store Center 8th floor, Kerala , Malappuram District , Pincode 676501 IN
+							</p>
+						</div>
+					</div>
+
+					<div class="flex-w w-full p-b-42">
+						<span class="fs-18 cl5 txt-center size-211">
+							<span class="lnr lnr-phone-handset"></span>
+						</span>
+
+						<div class="size-212 p-t-2">
+							<span class="mtext-110 cl2">
+								Lets Talk
+							</span>
+
+							<p class="stext-115 cl1 size-213 p-t-18">
+								+91 9633774482
+							</p>
+						</div>
+					</div>
+
+					<div class="flex-w w-full">
+						<span class="fs-18 cl5 txt-center size-211">
+							<span class="lnr lnr-envelope"></span>
+						</span>
+
+						<div class="size-212 p-t-2">
+							<span class="mtext-110 cl2">
+								Sale Support
+							</span>
+
+							<p class="stext-115 cl1 size-213 p-t-18">
+								afeef.kuttippala@gmail.com
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Map -->
+	<!-- <div class="map">
+	<div class="size-303" id="google_map" data-map-x="40.691446" data-map-y="-73.886787" data-pin="assets/images/icons/pin.png" data-scrollwhell="0" data-draggable="1" data-zoom="11">
+	</div>
+</div> -->
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+	<script src="assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script>
+		$('#myForm').submit(function (event) {
+			event.preventDefault();
+			var email = $('input[name="email"]').val();
+			var msg = $('textarea[name="msg"]').val();
+			$.ajax({
+				url: '/contact',
+				method: 'POST',
+				data: { email, msg },
+				success: function (response) {
+					if (response.sts) {
+						$('#myForm').hide();
+						$('#successMsg').show();
+					} else {
+						location.reload()
+					}
+				}
+			});
+		});
+	</script>
+	<%- include('../layouts/userFooter.ejs') %>

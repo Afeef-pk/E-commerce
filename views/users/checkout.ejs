@@ -1,0 +1,548 @@
+<%- include('../layouts/userHeader.ejs') %>
+	<!-- Header -->
+	<header class="header-v4">
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						Free shipping for standard order over ₹ 1000
+					</div>
+					<div class="right-top-bar flex-w h-full">
+						<a href="/profile" class="flex-c-m trans-04 p-lr-25">
+							My Account
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
+				<nav class="limiter-menu-desktop container">
+					<!-- Logo desktop -->
+					<a href="/" class="logo">
+						<img src="assets/images/icons/logo-01.png" alt="IMG-LOGO">
+					</a>
+
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li>
+								<a href="/">Home</a>
+							</li>
+							<li>
+								<a href="/shop">Shop</a>
+							</li>
+							<li>
+								<a href="/cart">Cart</a>
+							</li>
+							<li>
+								<a href="/contact">Contact</a>
+							</li>
+							<li>
+								<a href="/profile">My Account</a>
+								<ul class="sub-menu">
+									<li><a href="/profile">Profile</a></li>
+									<li><a href="/orders">Orders</a></li>
+									<li><a href="/logout">Logout</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<% if(!userCart ){ %>
+							<a href="/cart"
+								class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+								data-notify="0">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
+							<% } else { %>
+								<a href="/cart"
+									class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+									data-notify="<%= userCart.products.length %>">
+									<i class="zmdi zmdi-shopping-cart"></i>
+								</a>
+								<% } %>
+
+									<% if(!wishlist ){ %>
+										<a href="/wishlist"
+											class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+											data-notify="0">
+											<i class="zmdi zmdi-favorite-outline"></i>
+										</a>
+										<% } else { %>
+											<a href="/wishlist"
+												class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+												data-notify="<%= wishlist.products.length %>">
+												<i class="zmdi zmdi-favorite-outline"></i>
+											</a>
+											<% } %>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Header Mobile -->
+		<div class="wrap-header-mobile">
+			<!-- Logo moblie -->
+			<div class="logo-mobile">
+				<a href="/"><img src="assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+			</div>
+
+			<!-- Icon header -->
+			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				<% if(!userCart ){ %>
+					<a href="/cart">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+							data-notify="0">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+					</a>
+					<% } else { %>
+						<a href="/cart">
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+								data-notify="<%= userCart.products.length %>">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</div>
+						</a>
+						<% } %>
+
+							<% if(!wishlist ){ %>
+								<a href="/wishlist"
+									class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+									data-notify="0">
+									<i class="zmdi zmdi-favorite-outline"></i>
+								</a>
+								<% } else { %>
+									<a href="/wishlist"
+										class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+										data-notify="<%= wishlist.products.length %>">
+										<i class="zmdi zmdi-favorite-outline"></i>
+									</a>
+									<% } %>
+			</div>
+
+			<!-- Button show menu -->
+			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</div>
+		</div>
+
+		<!-- Menu Mobile -->
+		<div class="menu-mobile">
+			<ul class="topbar-mobile">
+				<li>
+					<div class="left-top-bar">
+						Free shipping for standard order over Rs 1000
+					</div>
+				</li>
+			</ul>
+			<ul class="main-menu-m">
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/shop">Shop</a>
+				</li>
+				<li>
+					<a href="/cart">Cart</a>
+				</li>
+				<li>
+					<a href="/contact">Contact</a>
+				</li>
+				<li>
+					<a href="/profile">My Account</a>
+					<ul class="sub-menu-m">
+						<li><a href="/profile">Profile</a></li>
+						<li><a href="/orders">Orders</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__text">
+						<h4>Check Out</h4>
+						<div class="breadcrumb__links">
+							<a href="/">Home</a>
+							<a href="/shop">Shop</a>
+							<span>Check Out</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+
+	<section class="checkout spad">
+		<div class="container">
+			<div class="checkout__form">
+				<div class="row">
+					<div class="col-lg-8 col-md-6">
+						<h4 class="font-weight-bold mt-0 mb-4">Select Address</h4>
+						<% for(let i=0 ; i< user.address.length ; i++) {%>
+							<div class="checkout__input__checkbox">
+								<label for="<%= i %>">
+									<input class="form-check-input" type="radio" name="address" id="<%= i %>"
+										value="<%= i %>" required checked>
+									<div class="bg-white card addresses-item mb-4 shadow-sm">
+										<div class="gold-members p-4">
+											<div class="media">
+												<div class="mr-3"><i class="icofont-briefcase icofont-3x"></i></div>
+												<div class="media-body">
+													Name: <%= user.address[i].name%><br>
+														Pincode: <%=user.address[i].pincode %><br>
+															Landmark: <%=user.address[i].landmark %><br>
+																Address:<%=user.address[i].address %> <br>
+																	Contact No :<%= user.address[i].mobile%>
+												</div>
+											</div>
+										</div>
+									</div>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<% } %>
+								<button class="btn btn-dark" onclick="showForm()">Add Address</button>
+								<form onsubmit="saveCheckoutAddress()">
+									<div style="display:none;" id="myForm">
+										<h6 class="checkout__title">Shipping Address</h6>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="checkout__input">
+													<p>Name<span>*</span></p>
+													<input type="text" name="name" required id="name">
+												</div>
+											</div>
+										</div>
+										<div class="checkout__input">
+											<p>Landmark<span>*</span></p>
+											<input type="text" placeholder="Street Address" class="checkout__input__add"
+												name="landmark" required id="landmark">
+										</div>
+										<div class="checkout__input">
+											<p>Address<span>*</span></p>
+											<input type="text" name="newAddress" required id="newAddress">
+										</div>
+
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="checkout__input">
+													<p>Pincode<span>*</span></p>
+													<input type="text" name="pincode" required id="pincode">
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="checkout__input">
+													<p>Phone<span>*</span></p>
+													<input type="text" name="phone" required id="mobile">
+												</div>
+											</div>
+										</div>
+										<button type="submit" class="btn btn-dark">Save</button>
+									</div>
+								</form>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="checkout__order">
+							<h4 class="order__title">Your order</h4>
+							<div class="checkout__order__products">Product <span>Total</span></div>
+							<ul class="checkout__total__products">
+								<% for(let i=0 ; i< userCart.products.length ; i++) { %>
+									<li>
+										<%=[i+1]%>.<%= userCart.products[i].name %> x <%= userCart.products[i].quantity
+													%>
+													<span>
+														<%=userCart.products[i].price %>
+													</span>
+									</li>
+									<% }; %>
+							</ul>
+							<ul class="checkout__total__all">
+								<li>Subtotal <span>Rs <%= userCart.Total%></span></li>
+								<li>Coupon Discount <span id="discountAmount">
+										Rs <%= userCart.discountPrice%>
+									</span></li>
+								<li>Total <span id="payableamount">Rs <%= userCart.Total-userCart.discountPrice%>
+									</span>
+								</li>
+							</ul>
+							<P>Please Select Payment method</P>
+							<br>
+							<div class="checkout__input__checkbox">
+								<label for="payment">
+									Cash On Delivery
+									<input type="radio" id="payment" name="paymentMethod" value="Cash On Delivery"
+										required>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<div class="checkout__input__checkbox">
+								<label for="paypal">
+									UPI / Net Banking
+									<input type="radio" id="paypal" name="paymentMethod" value="online" required>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<button onclick="checkout()" class="site-btn">PLACE ORDER</button>
+						</div>
+
+						<div class="d-flex flex-w flex-m  m-tb-20 ">
+							<div>
+								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+									name="couponcode" placeholder="Coupon Code" id="cinp">
+								<input type="hidden" name="cart_id" value="<%= userCart._id %>">
+							</div>
+							<div
+								class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+								<button onclick="applyCoupon()" id="removeCoupon">Apply coupon</button>
+							</div>
+
+							<!-- Button trigger modal -->
+							<div class="float-end">
+								<button type="button" class="btn btn-white" data-bs-toggle="modal"
+									data-bs-target="#exampleModal">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+										<path
+											d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+									</svg>
+								</button>
+							</div>
+
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Coupons</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<% for(let i=0 ; i <coupon.length ; i++) {%>
+												<div class="coupon">
+													<div class="coupon-code">
+														<%= coupon[i].couponCode %>
+													</div>
+													<div class="coupon-details">Flat <%=coupon[i].discount %>% Discount
+															on a minimum purchase of ₹ <%= coupon[i].minAmount %> upto
+																<%= coupon[i].maxDiscount %>
+													</div>
+												</div>
+												<% } %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<p style="color: rgb(0, 0, 0);" id="couponmessage" class="text-end"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Checkout Section End -->
+	<script>
+		function showForm() {
+			event.preventDefault()
+			var form = document.getElementById("myForm");
+			if (form.style.display === "none") {
+				form.style.display = "block";
+			} else {
+				form.style.display = "none";
+			}
+		}
+	</script>
+	<script src="assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script>
+		function checkout() {
+			var paymentMethod = $('input[name=paymentMethod]:checked').val();
+			var address = $('input[name=address]:checked').val()
+			var couponValue = $('input[name="couponcode"]').val()
+			event.preventDefault()
+			$.ajax({
+				url: '/checkout',
+				method: 'post',
+				data: {
+					paymentMethod: paymentMethod,
+					address: address,
+					couponValue: couponValue
+				},
+				success: (response) => {
+					if (response.Status) {
+						location.href = '/order_placed'
+					} else {
+						razorpayPayment(response.order)
+					}
+				}
+			})
+		}
+
+		function razorpayPayment(order) {
+			var options = {
+				"key": "rzp_test_jZOvbqraPZHCM1",
+				"amount": order.amount,
+				"currency": "INR",
+				"name": "NEW LOOK FASHION",
+				"description": "Test Transaction",
+				"image": "https://example.com/your_logo",
+				"order_id": order.id,
+				"handler": function (response) {
+					verifyPayment(response, order)
+				},
+				"prefill": {
+					"name": "Afeef PK",
+					"email": "afeef@example.com",
+					"contact": "9000090000"
+				},
+				"notes": {
+					"address": "Razorpay Corporate Office"
+				},
+				"theme": {
+					"color": "#0cfa9b"
+				}
+			};
+			var rzp1 = new Razorpay(options);
+			rzp1.open();
+		}
+		function verifyPayment(payment, order) {
+			$.ajax({
+				url: '/verify-payment',
+				data: {
+					payment,
+					order
+				},
+				method: 'post',
+				success: (response) => {
+					if (response.Status) {
+						location.href = '/order_placed'
+					} else {
+						alert('something Wrong')
+					}
+				}
+			})
+		}
+	</script>
+
+	<script>
+		function saveCheckoutAddress() {
+			event.preventDefault()
+			let name = $('input[name="name"]').val();
+			let pincode = $('input[name="pincode"]').val();
+			let landmark = $('input[name="landmark"]').val();
+			let newAddress = $('input[name="newAddress"]').val();
+			let phone = $('input[name="phone"]').val();
+			$.ajax({
+				url: '/checkout_address',
+				type: 'POST',
+				data: {
+					name: name,
+					pincode: pincode,
+					landmark: landmark,
+					newAddress: newAddress,
+					phone: phone
+				},
+				success: function (data) {
+					location.reload()
+				}
+			});
+		}
+
+		function applyCoupon() {
+			event.preventDefault()
+			var couponCode = $('input[name="couponcode"]').val();
+			var cartID = $('input[name="cart_id"]').val();
+			$.ajax({
+				url: '/apply-code',
+				type: 'POST',
+				data: { couponCode: couponCode, cartID: cartID },
+				success: function (data) {
+					if (data.minimum) {
+						$('#couponmessage').text(data.message).css('color', 'red');
+						$('input[name="couponcode"]').val(null)
+					}
+					else if (data.invalid) {
+						$('#couponmessage').text(data.message).css('color', 'red');
+						$('input[name="couponcode"]').val(null)
+					}
+					else if (!data.removed) {
+						$('#discountAmount').text('Rs ' + data.discountAmount);
+						$('#payableamount').text('Rs ' + data.afterdiscount);
+						$('#cinp').attr('disabled', true)
+						$('#removeCoupon').text('Remove Coupon');
+						$('#couponmessage').text(data.message).css('color', 'black');
+					} else {
+						location.reload()
+					}
+				}
+			});
+		};
+	</script>
+
+	<script>
+		document.getElementById("name").addEventListener("input", function () {
+			var Uname = document.getElementById("name").value;
+			if (Uname.trim() == "") {
+				document.getElementById("name").setCustomValidity("Name cannot be null");
+			} else {
+				document.getElementById("name").setCustomValidity("");
+			}
+		});
+		document.getElementById("pincode").addEventListener("input", function () {
+			var pincode = document.getElementById("pincode").value;
+			if (isNaN(pincode)) {
+				document.getElementById("pincode").setCustomValidity("Pincode Can't be a String");
+			} else if (pincode.trim().length < 6) {
+				document.getElementById("pincode").setCustomValidity("Pincode must be 6 digits");
+			} else {
+				document.getElementById("pincode").setCustomValidity("");
+			}
+		});
+
+		document.getElementById("landmark").addEventListener("input", function () {
+			var landmark = document.getElementById("landmark").value;
+			if (landmark.trim() == "") {
+				document.getElementById("landmark").setCustomValidity("landmark cannot be null");
+			} else {
+				document.getElementById("landmark").setCustomValidity("");
+			}
+		});
+
+		document.getElementById("newAddress").addEventListener("input", function () {
+			var newAddress = document.getElementById("newAddress").value;
+			if (newAddress.trim() == "") {
+				document.getElementById("newAddress").setCustomValidity("address cannot be null");
+			} else {
+				document.getElementById("newAddress").setCustomValidity("");
+			}
+		});
+		document.getElementById("mobile").addEventListener("input", function () {
+			var mobilenumber = document.getElementById("mobile").value;
+			if (isNaN(mobilenumber)) {
+				document.getElementById("mobile").setCustomValidity("Mobile Number Can't be a String");
+			} else if (mobilenumber.trim().length < 10) {
+				document.getElementById("mobile").setCustomValidity("Mobile Number must be 10 digits");
+			} else if (mobilenumber.trim().length > 10) {
+				document.getElementById("mobile").setCustomValidity("Mobile Number can't br greater than 10 digits");
+			} else {
+				document.getElementById("mobile").setCustomValidity("");
+			}
+		});
+	</script>
+	<%- include('../layouts/userFooter.ejs') %>

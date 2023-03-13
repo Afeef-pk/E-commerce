@@ -1,0 +1,141 @@
+<%- include('../layouts/header.ejs') %>
+
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" id="current-list-item" class="icon-a"><i
+				class="fa fa-dashboard icons current-list-item"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a"><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i> Customers</a>
+		<a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart icons "></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Dashboard</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Dashboard</span>
+			</div>
+
+			<div class="col-div-6">
+				<div class="profile">
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="col-div-3">
+			<div class="box">
+				<p>
+					<%= users.length %><br /><span>Customers</span>
+				</p>
+				<i class="fa fa-users box-icon"></i>
+			</div>
+		</div>
+		<div class="col-div-3">
+			<div class="box">
+				<p>
+					<%= product.length %><br /><span>Products</span>
+				</p>
+				<i class="fa fa-shopping-cart box-icon"></i>
+			</div>
+		</div>
+		<div class="col-div-3">
+			<div class="box">
+				<p>
+					<%= orders.length %><br /><span>Orders</span>
+				</p>
+				<i class="fa fa-shopping-cart box-icon"></i>
+			</div>
+		</div>
+		<div class="col-div-3">
+			<div class="box">
+				<p>
+					<%= delivered.length %><br /><span>Delivered</span>
+				</p>
+				<i class="fa fa-shopping-bag box-icon"></i>
+			</div>
+		</div>
+		<div class="clearfix"></div><br>
+		<div class="col-div-3">
+			<div class="box">
+				<p>
+					<%= categorie.length %><br /><span>Categories</span>
+				</p>
+				<i class="fa fa-list box-icon"></i>
+			</div>
+		</div>
+		<div class="col-div-3">
+			<div class="box">
+				<p>
+					<%= coupons.length %><br /><span>Coupons</span>
+				</p>
+				<i class="fa fa-window-maximize box-icon"></i>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<br>
+		<div class="col-div-7">
+			<div class="box-8">
+				<div class="content-box">
+					<p>Recent Orders </p>
+					<table>
+						<tr>
+							<th>Customer Name</th>
+							<th>Order Id</th>
+							<th>Total</th>
+							<th>Payment Status</th>
+						</tr>
+						<% for(let i=orders.length-1 ;  i > orders.length-7 ; i--) { %>
+							<tr>
+								<td>
+									<%= orders[i].userID.name %>
+								</td>
+								<td>
+									<%= orders[i]._id %>
+								</td>
+								<td>
+									<%= orders[i].Total %>
+								</td>
+								<td>
+									<%= orders[i].paymentStatus %>
+								</td>
+							</tr>
+							<% } %>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-div-4">
+			<div class="box-4">
+				<div class="content-box">
+					<p>Total Sale </p>
+					<div class="circle-wrap">
+						<div class="circle">
+							<div class="mask full">
+								<div class="fill"></div>
+							</div>
+							<div class="mask half">
+								<div class="fill"></div>
+							</div>
+							<% if (totalSale.length>0) {%>
+								<div class="inside-circle"> ₹ <%= totalSale[0].total %>
+										<% }else{%>
+											<div class="inside-circle"> ₹ 0
+												<%} %>
+											</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%- include('../layouts/footer.ejs') %>

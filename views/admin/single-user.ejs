@@ -1,0 +1,152 @@
+<%- include('../layouts/header.ejs') %>
+
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a"><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" id="current-list-item" class="icon-a"><i
+				class="fa fa-users icons current-list-item"></i> Customers</a>
+		<a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart icons "></i>Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Customers</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Customers</span>
+			</div>
+
+			<div class="col-div-6">
+				<div class="profile">
+
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="clearfix"></div>
+		<br />
+
+		<section style="background-color: #eee;">
+			<div class="container py-3">
+				<div class="row">
+					<div class="col">
+						<nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+								<li class="breadcrumb-item"><a href="/admin/user_manage">User</a></li>
+								<li class="breadcrumb-item active" aria-current="page">User Profile</li>
+
+							</ol>
+
+						</nav>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="card mb-4">
+							<div class="card-body text-center">
+								<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+									alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+								<h5 class="my-3 ">
+									<%= users.name %>
+								</h5>
+
+								<form action="" method="post">
+
+									<input class="form-check-input" type="radio" name="flexRadioDefault" value="1"
+										id="flexRadioDefault1">
+									<label class="form-check-label" for="flexRadioDefault1">
+										Block
+									</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+									<input class="form-check-input" type="radio" name="flexRadioDefault" value="0"
+										id="flexRadioDefault1">
+									<label class="form-check-label" for="flexRadioDefault2">
+										Unblock
+									</label>
+									<input type="hidden" name="user_id" value="<%= users._id %>">
+									<br><br>
+									<input class="btn btn-primary" type="submit" value="Update">
+								</form>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-lg-8">
+						<div class="card mb-4">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Full Name</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="fw-bold mb-0 text-black">
+											<%= users.name %>
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Email</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="fw-bold mb-0">
+											<%= users.email %>
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Phone</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="fw-bold mb-0">
+											<%= users.mobile %>
+										</p>
+									</div>
+								</div>
+								<hr>
+
+
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0 ">Status</p>
+									</div>
+									<div class="col-sm-9">
+
+										<% if(users.is_blocked===0){ %>
+											<p class=" mb-0 fw-bold" style="color: chartreuse;">Active</p>
+
+											<% }else{ %>
+												<p class=" mb-0 fw-bold" style="color: red">Blocked</p>
+
+												<% }%>
+													</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</div>
+
+
+	
+
+	<%- include('../layouts/footer.ejs') %>

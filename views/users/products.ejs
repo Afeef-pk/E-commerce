@@ -1,0 +1,468 @@
+<%- include('../layouts/userHeader.ejs') %>
+	<!-- Header -->
+	<header class="header-v4">
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						Free shipping for standard order over ₹ 1000
+					</div>
+					<div class="right-top-bar flex-w h-full">
+						<a href="/profile" class="flex-c-m trans-04 p-lr-25">
+							My Account
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
+				<nav class="limiter-menu-desktop container">
+					<!-- Logo desktop -->
+					<a href="/" class="logo">
+						<img src="assets/images/icons/logo-01.png" alt="IMG-LOGO">
+					</a>
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li>
+								<a href="/">Home</a>
+							</li>
+							<li class="active-menu">
+								<a href="/shop">Shop</a>
+							</li>
+							<li>
+								<a href="/cart">Cart</a>
+							</li>
+							<li>
+								<a href="/contact">Contact</a>
+							</li>
+							<li>
+								<a href="/profile">My Account</a>
+								<% if(typeof userData=='undefined' ){ %>
+									<ul class="sub-menu">
+										<li><a href="/login">Login</a></li>
+										<li><a href="/signup">Register</a></li>
+									</ul>
+									<% } else { %>
+										<ul class="sub-menu">
+											<li><a href="/profile">Profile</a></li>
+											<li><a href="/orders">Orders</a></li>
+											<li><a href="/logout">Logout</a></li>
+										</ul>
+										<% } %>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
+
+						<% if(!userCart ){ %>
+							<a href="/cart"
+								class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+								data-notify="0">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
+							<% } else { %>
+								<a href="/cart"
+									class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+									data-notify="<%= userCart.products.length %>">
+									<i class="zmdi zmdi-shopping-cart"></i>
+								</a>
+								<% } %>
+									<% if(!wishlist ){ %>
+										<a href="/wishlist"
+											class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+											data-notify="0">
+											<i class="zmdi zmdi-favorite-outline"></i>
+										</a>
+										<% } else { %>
+											<a href="/wishlist"
+												class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+												data-notify="<%= wishlist.products.length %>">
+												<i class="zmdi zmdi-favorite-outline"></i>
+											</a>
+											<% } %>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Header Mobile -->
+		<div class="wrap-header-mobile">
+			<!-- Logo moblie -->
+			<div class="logo-mobile">
+				<a href="/"><img src="assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+			</div>
+
+			<!-- Icon header -->
+			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+					<i class="zmdi zmdi-search"></i>
+				</div>
+
+				<% if(!userCart ){ %>
+					<a href="/cart">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+							data-notify="0">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+					</a>
+					<% } else { %>
+						<a href="/cart">
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+								data-notify="<%= userCart.products.length %>">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</div>
+						</a>
+						<% } %>
+							<% if(!wishlist ){ %>
+								<a href="/wishlist"
+									class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+									data-notify="0">
+									<i class="zmdi zmdi-favorite-outline"></i>
+								</a>
+								<% } else { %>
+									<a href="/wishlist"
+										class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+										data-notify="<%= wishlist.products.length %>">
+										<i class="zmdi zmdi-favorite-outline"></i>
+									</a>
+									<% } %>
+			</div>
+
+			<!-- Button show menu -->
+			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</div>
+		</div>
+
+		<!-- Menu Mobile -->
+		<div class="menu-mobile">
+			<ul class="topbar-mobile">
+				<li>
+					<div class="left-top-bar">
+						Free shipping for standard order over Rs 1000
+					</div>
+				</li>
+			</ul>
+			<ul class="main-menu-m">
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/shop">Shop</a>
+				</li>
+				<li>
+					<a href="/cart">Cart</a>
+				</li>
+				<li>
+					<a href="/contact">Contact</a>
+				</li>
+				<li>
+					<a href="/profile">My Account</a>
+					<% if(typeof userData=='undefined' ){ %>
+						<ul class="sub-menu-m">
+							<li><a href="/login">Login</a></li>
+							<li><a href="/signup">Register</a></li>
+						</ul>
+						<span class="arrow-main-menu-m">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+						<% } else { %>
+							<ul class="sub-menu-m">
+								<li><a href="/profile">Profile</a></li>
+								<li><a href="/orders">Orders</a></li>
+								<li><a href="/logout">Logout</a></li>
+							</ul>
+							<span class="arrow-main-menu-m">
+								<i class="fa fa-angle-right" aria-hidden="true"></i>
+							</span>
+							<% } %>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Modal Search -->
+		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+			<div class="container-search-header">
+				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+					<img src="assets/images/icons/icon-close2.png" alt="CLOSE">
+				</button>
+				<form class="wrap-search-header flex-w p-l-15">
+					<button class="flex-c-m trans-04">
+						<i class="zmdi zmdi-search"></i>
+					</button>
+					<input class="plh3" type="text" name="search" placeholder="Search...">
+				</form>
+			</div>
+		</div>
+	</header>
+
+	<!-- Product -->
+	<div class="bg0 m-t-23 p-b-80">
+		<div class="container">
+			<div class="flex-w flex-sb-m p-b-25">
+				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+					<a href="/shop"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
+						All Products
+					</button></a>
+				</div>
+
+				<div class="flex-w flex-c-m m-tb-10">
+					<div
+						class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+						Filter
+					</div>
+
+					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+						Search
+					</div>
+				</div>
+
+				<!-- Search product -->
+
+				<div class="dis-none panel-search w-full p-t-10 p-b-15">
+					<form action="">
+						<div class="bor8 dis-flex p-l-15">
+							<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+								<i class="zmdi zmdi-search"></i>
+							</button>
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" id="searchText"
+								placeholder="Search">
+						</div>
+					</form>
+				</div>
+
+				<!-- Filter -->
+				<div class="dis-none panel-filter w-full p-t-10">
+					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+						<div class="filter-col1 p-r-15 p-b-5">
+							<div class="mtext-102 cl2 p-b-15">
+								Categories
+							</div>
+							<ul>
+								<li class="p-b-6">
+									<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
+										<a href="/shop">All</a>
+									</span>
+								</li>
+								<% for(let i=0 ; i< categoryData.length ; i++){ %>
+									<li class="p-b-6">
+										<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
+											<input type="checkbox" id="<%= categoryData[i]._id %>" name="priceFilter"
+												onclick="filterSort()"
+												style="display: inline-block; vertical-align: middle; margin-right: 5px;">
+											<%= categoryData[i].categoryName %>
+										</span>
+									</li>
+									<% } %>
+							</ul>
+						</div>
+
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								Sort By
+							</div>
+							<ul>
+								<li class="p-b-6">
+									<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
+										<input type="radio" name="priceFilter" onclick="filterSort()"
+											style="display: inline-block; vertical-align: middle; margin-right: 5px;"
+											value="1">
+										Price: Low to High
+									</span>
+								</li>
+
+								<li class="p-b-6">
+									<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
+										<input type="radio" name="priceFilter" onclick="filterSort()"
+											style="display: inline-block; vertical-align: middle; margin-right: 5px;"
+											value="-1">
+										Price: High to Low
+									</span>
+								</li>
+								<li class="p-b-6">
+									<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
+										<a href="/shop"
+											style="display: inline-block; vertical-align: middle; margin-right: 5px;">Clear</a>
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% if ( products.length>0 ) { %>
+			<div class="row isotope-grid" id="productDiv">
+				
+					<% for(let i=0 ; i < products.length ; i++){ %>
+						<!-- Products list -->
+						<div
+							class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <%= products[i].category.categoryName %>">
+							<div class="block2">
+								<div class="block2-pic hov-img0">
+									<a href="/product?id=<%= products[i]._id %>"><img src="/images/<%= products[i].image[0] %>" alt="IMG-PRODUCT"></a>
+
+									<% if ( products[i].stock>0 ) { %>
+										<a href="/add-cart?id=<%=  products[i]._id %>"
+											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+											Add to Cart
+										</a>
+										<% } else { %>
+											<p
+												class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn10 p-lr-15 trans-04 ">
+												Out Of stock
+											</p>
+											<% } %>
+								</div>
+
+								<div class="block2-txt flex-w flex-t p-t-14">
+									<div class="block2-txt-child1 flex-col-l ">
+										<a href="/product?id=<%= products[i]._id %>"
+											class="stext-104  hov-cl1 trans-04 js-name-b2 p-b-6">
+											<%= products[i].name %>
+										</a>
+										<span class="stext-105 cl10">
+											RS <%= products[i].price %>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% }%>
+					</div>
+							<% }else{ %>
+										<div class="col-md-12">
+											<div class="card">
+												<div class="card-body cart">
+													<div class="col-sm-12 empty-cart-cls text-center">
+														<img src="/assets/images/icons/pngwing.com.png" width="130" height="130"
+															class="img-fluid mb-4 mr-3">
+														<h3><strong>Product Not Found</strong></h3><br>
+														<a href="/shop" class="btn btn-dark cart-btn-transform m-3" data-abc="true">continue
+															shopping</a>
+													</div>
+												</div>
+											</div>
+										</div>
+								<br><br>
+								<% }%>
+
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center">
+					<!-- <% if (currentPage==1) { %>
+						<li class="page-item disabled">
+							<a class="page-link" href="#" tabindex="-1">Previous</a>
+						</li>
+						<% } else { %>
+							<% } %> -->
+
+							<li class="page-item" >
+								<a class="page-link" id="previous" tabindex="-1">Previous</a>
+							</li>
+								<% for(let j=1 ; j <=totalPages ; j++) { %>
+											<li class="page-item ">
+												<a class="page-link" style="cursor: pointer;" onclick="pagination('<%= j %>')">
+													<%= j %>
+												</a>
+											</li>
+												<% } %>
+													<!-- <% if (currentPage==totalPages) { %>
+														<li class="page-item disabled">
+															<a class="page-link" href="#">Next</a>
+														</li>
+														<% } else { %>
+															<% } %> -->
+															<li class="page-item">
+																<a class="page-link"
+																href="" >Next</a>
+															</li>
+															
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+let pageNumber;
+function pagination(no){
+	pageNumber=no
+	filterSort()
+}
+
+// $('#previous').click(function(e) {
+// e.preventDefault()
+// console.log('dsf');
+// var currentPage = $('#current-page').text() 
+// console.log(currentPage);
+// var previousPage = parseInt(currentPage) - 1; 
+// if(previousPage >= 1) { 
+// 	pagination(previousPage);
+// }
+// });
+
+		function filterSort(clear) {
+			var categoryIds = [];
+			$('input[type=checkbox][name=priceFilter]:checked').each(function () {
+				categoryIds.push($(this).attr('id'));
+			});
+			var radioValue = $('input[type=radio][name=priceFilter]:checked').val();
+			$.ajax({
+				url: '/filter',
+				method: 'post',
+				data: {
+					checked: categoryIds,
+					sortValue: radioValue,
+					pageNumber:pageNumber,
+				},
+				success: (response) => {
+					let products = response.filteredProductes
+					let totalPages = response.totalPages
+					let productHtml = "";
+					for (let i = 0; i < products.length; i++) {
+						productHtml += `
+          <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${products[i].category.categoryName}">
+            <div class="block2">
+              <div class="block2-pic hov-img0">
+                <a href="/product?id=${products[i]._id}"><img src="/images/${products[i].image[0]}" alt="IMG-PRODUCT"></a>
+                ${products[i].stock > 0
+								? `<a href="/add-cart?id=${products[i]._id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">Add to Cart</a>`
+								: `<p class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn10 p-lr-15 trans-04 ">Out Of stock</p>`
+							}
+              </div>
+              <div class="block2-txt flex-w flex-t p-t-14">
+                <div class="block2-txt-child1 flex-col-l ">
+                  <a href="/product?id=${products[i]._id}" class="stext-104  hov-cl1 trans-04 js-name-b2 p-b-6">${products[i].name}</a>
+                  <span class="stext-105 cl10">RS ${products[i].price}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+					}
+					$("#productDiv").html(productHtml);
+				}
+			})
+		}
+	</script>
+	<%- include('../layouts/userFooter.ejs') %>

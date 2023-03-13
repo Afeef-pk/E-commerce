@@ -1,0 +1,91 @@
+<%- include('../layouts/header.ejs') %>
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a"><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" id="current-list-item" class="icon-a"><i class="fa fa-users icons"></i>
+			Customers</a>
+		<a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart icons"></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Customers</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Customers</span>
+			</div>
+
+			<div class="col-div-6">
+				<div class="profile">
+
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="col-div-8"> 
+			<div class="box-8">
+				<div class="content-box">
+					<table id="paginationTable" class="table-responsive">
+						<thead>
+							<tr>
+								<th scope="col">No</th>
+								<th>Name</th>
+								<th>Contact</th>
+								<th>E-mail</th>
+								<th>Status</th>
+								<th>view</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% if (users.length> 0){
+								for (let i=0 ; i<users.length ; i++){ %>
+									<tr>
+										<td>
+											<%= i+1 %>
+										</td>
+										<td>
+											<%= users[i].name %>
+										</td>
+
+										<td>
+											<%= users[i].mobile %>
+										</td>
+
+										<td>
+											<%= users[i].email %>
+										</td>
+
+										<% if(users[i].is_blocked===0){ %>
+											<td style="color: chartreuse;">
+												Active
+											</td>
+											<% }else{ %>
+												<td style="color: rgb(255, 0, 0);">
+													blocked
+												</td>
+												<% }%>
+													<td><a href="/admin/view_user?id=<%= users [i]._id  %>"><button
+																class="btn btn-primary">view</button></a></td>
+									</tr>
+									<% } }%>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	
+
+	<%- include('../layouts/footer.ejs') %>

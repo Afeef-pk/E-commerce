@@ -1,0 +1,131 @@
+<%- include('../layouts/header.ejs') %>
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a" id="current-list-item"><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i>
+			Customers</a>
+		<a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart icons"></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Customers</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Customers</span>
+			</div>
+			<div class="col-div-6">
+				<div class="profile">
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="col-div-8">
+			<div class="box-8">
+				<div class="content-box">
+
+
+					<form action="/admin/export-sales-pdf" method="post">
+						<div class="d-flex  justify-content-between">
+							<div>
+								<label for="from">From:</label>
+								<input type="date" id="from" name="salesFrom">
+								<label for="to">To:</label>
+								<input type="date" id="to" name="salesTo">
+								<button class="btn btn-dark" onclick="dateFilter()">Get Data</button>
+							</div>
+							<div>
+								<button type="submit" class=" btn btn-success">Download Pdf</button>
+							</div>
+						</div>
+					</form>
+
+					<br>
+					<table id="paginationTable">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Customer Name</th>
+								<th>Order Date</th>
+								<th>Products</th>
+								<th>Total</th>
+								<th>Payment Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% if (recentOrders.length> 0){
+								for (let i=0 ; i<recentOrders.length ; i++){ %>
+									<tr>
+										<td>
+											<%= i+1 %>
+										</td>
+										<td>
+											<%= recentOrders[i].userID.name %>
+										</td>
+										<td>
+											<%= recentOrders[i].orderDate %>
+										</td>
+										<td>
+											<% recentOrders[i].products.forEach(element=> {%>
+												<%= element.name %> x <%= element.quantity %>,
+														<br>
+														<% });%>
+										</td>
+										<td>
+											<%= recentOrders[i].Total %>
+										</td>
+										<td>
+											<%= recentOrders[i].paymentStatus %>
+										</td>
+									</tr>
+									<% } }%>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<script>
+		function dateFilter() {
+			event.preventDefault()
+			const fromInput = document.getElementById("from").value
+			const toInput = document.getElementById("to").value
+			$.ajax({
+				url: '/admin/sale-date-filter',
+				method: 'post',
+				data: {
+					fromInput: fromInput,
+					toInput: toInput
+				},
+				success: (recentOrders) => {
+					var tableBody = '';
+					for (var i = 0; i < recentOrders.length; i++) {
+						tableBody += '<tr>';
+						tableBody += '<td>' + (i + 1) + '</td>';
+						tableBody += '<td>' + recentOrders[i].userID.name + '</td>';
+						tableBody += '<td>' + recentOrders[i].orderDate + '</td>';
+						tableBody += '<td>';
+						for (var j = 0; j < recentOrders[i].products.length; j++) {
+							tableBody += recentOrders[i].products[j].name + ' x ' + recentOrders[i].products[j].quantity + ',<br>';
+						}
+						tableBody += '</td>';
+						tableBody += '<td>' + recentOrders[i].Total + '</td>';
+						tableBody += '<td>' + recentOrders[i].paymentStatus + '</td>';
+						tableBody += '</tr>';
+					}
+					$('tbody').html(tableBody);
+				}
+			})
+		}
+	</script>
+	<%- include('../layouts/footer.ejs') %>

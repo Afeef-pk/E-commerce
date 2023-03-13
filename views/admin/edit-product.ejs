@@ -1,0 +1,228 @@
+<%- include('../layouts/header.ejs') %>
+
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i> Customers</a>
+		<a href="/admin/product_manage" id="current-list-item" class="icon-a"><i
+				class="fa fa-shopping-cart  current-list-item"></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+	<div id="main">
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Products</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Products</span>
+			</div>
+			<div class="col-div-6">
+				<div class="profile">
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<section style="background-color: #eee;">
+			<div class="container py-3">
+				<div class="row">
+					<div class="col">
+						<nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a href="/admin/product_manage">Products</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="card mb-4">
+							<div class="card-body">
+								<form action="" class="" method="post" enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Product Name</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0 text-black"> <input type="text" name="name"
+													id="name" required value="<%=product.name%>"> </p>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">MRP</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0"> <input type="text" id="mrp" name="mrp"
+													required value="<%=product.mrp %>"> </p>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Price</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0"> <input type="text" id="price" name="price"
+													required value="<%=product.price %>"> </p>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Category</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">
+												<select id="lang" name="category">
+													<%if (product.category==null) {%>
+														<option value=""></option>
+														<% } else {%>
+															<option value="<%=product.category._id %>">
+																<%=product.category.categoryName %>
+															</option>
+															<%}%>
+																<% for(let i=0 ; i < category.length ; i++){ %>
+																	<option value="<%=  category[i]._id  %>">
+																		<%=category[i].categoryName%>
+																	</option>
+																	<% } %>
+												</select>
+											</p>
+										</div>
+									</div>
+									<br>
+
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Image</p>
+										</div>
+										<div class="col-sm-9">
+											<input type="file" class="form-control" id="inputGroupFile02" name="image"
+												multiple onchange="previewImages(event)" >
+												<br>
+										</div>
+										<div id="image-preview-container">
+										</div>
+									</div>
+									<br>
+
+
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Stock</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0"> <input type="text" id="stock" name="stock"
+													required value="<%= product.stock %>"></p>
+										</div>
+									</div>
+
+									<br>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Discription</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0"> <textarea name="description" id="description"
+													placeholder="Description"
+													required><%=product.description%></textarea>
+											</p>
+										</div>
+									</div>
+									<br>
+									<input type="hidden" name="product_id" value="<%= product._id %>">
+									<div class="d-flex  justify-content-center"><button
+											class="btn btn-success d-flex jus" type="submit">Save</button></div>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<script>
+
+function previewImages(event) {
+			const input = event.target;
+			const previewContainer = document.getElementById('image-preview-container');
+			previewContainer.innerHTML = '';
+
+			if (input.files && input.files.length) {
+				for (let i = 0; i < input.files.length; i++) {
+					const reader = new FileReader();
+					reader.onload = function (e) {
+						const preview = document.createElement('img');
+						preview.src = e.target.result;
+						previewContainer.appendChild(preview);
+					};
+					reader.readAsDataURL(input.files[i]);
+				}
+			}
+		}
+
+		document.getElementById("name").addEventListener("input", function () {
+			var Uname = document.getElementById("name").value;
+
+			if (Uname.trim() == "") {
+				document.getElementById("name").setCustomValidity("Product Name Can't be null");
+			} else {
+				document.getElementById("name").setCustomValidity("");
+			}
+		});
+
+		document.getElementById("mrp").addEventListener("input", function () {
+			var mrp = document.getElementById("mrp").value
+			if (mrp.trim() == "") {
+				document.getElementById("mrp").setCustomValidity("Price can't be Null");
+			} else if (isNaN(mrp)) {
+				document.getElementById("mrp").setCustomValidity("Price Must be a Number");
+			} else {
+				document.getElementById("mrp").setCustomValidity("");
+			}
+		})
+
+		document.getElementById("price").addEventListener("input", function () {
+			var price = document.getElementById("price").value
+			if (price.trim() == "") {
+				document.getElementById("price").setCustomValidity("Price can't be Null");
+			} else if (isNaN(price)) {
+				document.getElementById("price").setCustomValidity("Price Must be a Number");
+			} else {
+				document.getElementById("price").setCustomValidity("");
+			}
+		})
+
+		document.getElementById("stock").addEventListener("input", function () {
+			var stock = document.getElementById("stock").value
+			if (stock.trim() == "") {
+				document.getElementById("stock").setCustomValidity("Stock can't be Null");
+			} else if (isNaN(stock)) {
+				document.getElementById("stock").setCustomValidity("Stock Must be a Number");
+			} else {
+				document.getElementById("stock").setCustomValidity("");
+			}
+		})
+
+		document.getElementById("description").addEventListener("input", function () {
+			var description = document.getElementById("description").value;
+
+			if (description.trim() == "") {
+				document.getElementById("description").setCustomValidity("description Can't be null");
+			} else {
+				document.getElementById("description").setCustomValidity("");
+			}
+		});
+
+	</script>
+	<%- include('../layouts/footer.ejs') %>

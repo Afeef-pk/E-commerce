@@ -1,0 +1,220 @@
+<%- include('../layouts/header.ejs') %>
+
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage"  class="icon-a"><i class="fa fa-users icons "></i> Customers</a>
+		<a href="/admin/product_manage" id="current-list-item" class="icon-a"><i class="fa fa-shopping-cart  current-list-item"></i>Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Customers</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Customers</span>
+			</div>
+
+			<div class="col-div-6">
+				<div class="profile">
+
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		
+
+		<section style="background-color: #eee;">
+			<div class="container py-3">
+				<div class="row">
+					<div class="col">
+						<nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+								<li class="breadcrumb-item"><a href="/admin/product_manage">Product</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Producut Deatails</li>
+
+							</ol>
+
+						</nav>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="card mb-4 ">
+							<div class="card-body text-center">
+
+								<div>
+									<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+										<div class="carousel-inner">
+											<% for(let i=0 ; i < product.image.length ; i++) {%>
+										  <div class="carousel-item active">
+											<img src="/images/<%= product.image[i] %>" class="d-block w-100" alt="..." style="width: 300px; height: 300px;">
+										  </div>
+										  <% } %>
+										</div>
+										<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+										  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										  <span class="visually-hidden">Previous</span>
+										</button>
+										<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+										  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+										  <span class="visually-hidden">Next</span>
+										</button>
+									  </div>
+								</div>
+									<h5 class="my-3  fw-bold">
+										<%= product.name %>
+									</h5>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-lg-8">
+						<div class="card mb-4">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Product Name</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="mb-0 text-black fw-bold">
+											<%= product.name %>
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Price</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="mb-0 text-black fw-bold">
+											<%= product.price %>
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Category</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="mb-0 text-black fw-bold">
+											<%if (product.category == null) {%>
+												
+										<%	} else {%>
+											<%= product.category.categoryName %>
+											<%}%>
+											
+											
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Stock</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="mb-0 text-black fw-bold">
+											<%= product.stock %>
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Discription</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="mb-0 text-black fw-bold">
+											<%= product.description %>
+										</p>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+						<div class="d-flex justify-content-center">
+							<a href="/admin/edit_product?id=<%= product._id %>"><button
+									class="btn btn-success">Edit</button></a>
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							<% if (product.disabled) {%>
+								<a href="/admin/delete_product?id=<%= product._id %>"><button  class="btn btn-success">Enable</button></a>
+							<% } else {%>
+								<button onclick="softDelete()" class="btn btn-danger">Disable</button>
+							<% } %>
+							<script>
+								function softDelete() {
+									Swal.fire({
+										title: 'Are you sure?',
+										text: "You won't be able to revert this!",
+										icon: 'warning',
+										showCancelButton: true,
+										confirmButtonColor: '#3085d6',
+										cancelButtonColor: '#d33',
+										confirmButtonText: 'Yes, confirm!'
+									}).then((result) => {
+										if (result.value) {
+											window.location.href = '/admin/delete_product?id=<%= product._id %>';
+										}
+									})
+								}
+							</script>
+
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+		</section>
+
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+
+		$(".nav").click(function () {
+			$("#mySidenav").css('width', '70px');
+			$("#main").css('margin-left', '70px');
+			$(".logo").css('visibility', 'hidden');
+			$(".logo span").css('visibility', 'visible');
+			$(".logo span").css('margin-left', '-10px');
+			$(".icon-a").css('visibility', 'hidden');
+			$(".icons").css('visibility', 'visible');
+			$(".icons").css('margin-left', '-8px');
+			$(".nav").css('display', 'none');
+			$(".nav2").css('display', 'block');
+		});
+
+		$(".nav2").click(function () {
+			$("#mySidenav").css('width', '300px');
+			$("#main").css('margin-left', '300px');
+			$(".logo").css('visibility', 'visible');
+			$(".icon-a").css('visibility', 'visible');
+			$(".icons").css('visibility', 'visible');
+			$(".nav").css('display', 'block');
+			$(".nav2").css('display', 'none');
+		});
+
+	</script>
+
+	<%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,97 @@
+<%- include('../layouts/header.ejs') %>
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i> Customers</a>
+		<a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart icons "></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons "></i> Orders </a>
+		<a href="/admin/coupons" id="current-list-item" class="icon-a"><i
+				class="fa fa-window-maximize icons current-list-item"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ COUPONS</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ COUPONS</span>
+			</div>
+			<div class="col-div-6">
+				<div class="profile">
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="col-div-8">
+			<div class="box-8">
+				<div class="content-box">
+					<button class="btn btn-primary "><a href="/admin/add_new_coupon"
+							style="text-decoration: none; color: #ddd;">New Coupon</a></button>
+					<br><br>
+
+					<table id="paginationTable">
+						<thead>
+							<tr>
+								<th>COUPONS</th>
+								<th>Discount</th>
+								<th>Minimum Purchase</th>
+								<th>Max Discount</th>
+								<th>Count</th>
+								<th>Expire On</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<% for( let i=0 ; i< coupons.length ; i++) { %>
+							<tr>
+								<th>
+									<%= coupons[i].couponCode %>
+								</th>
+								<th>
+									<%= coupons[i].discount %>%
+								</th>
+								<th>
+									Rs <%= coupons[i].minAmount %>
+								</th>
+								<th>
+									Rs <%= coupons[i].maxDiscount %>
+								</th>
+								<th>
+									<%= coupons[i].count %>
+								</th>
+								<% var expireDate=coupons[i].expire.toLocaleDateString(); %>
+									<th>
+										<%= expireDate%>
+									</th>
+									<th><button class="btn btn-danger" onclick="softDelete()">Delete</button>
+									<a href="/admin/edit-coupon?id=<%= coupons[i]._id %>"><button class="btn btn-primary">Edit</button></a>
+							</tr>
+							<script>
+								function softDelete() {
+									Swal.fire({
+										title: 'Are you sure?',
+										text: "You won't be able to revert this!",
+										icon: 'warning',
+										showCancelButton: true,
+										confirmButtonColor: '#3085d6',
+										cancelButtonColor: '#d33',
+										confirmButtonText: 'Yes, confirm!'
+									}).then((result) => {
+										if (result.value) {
+											window.location.href = '/admin/delete_coupon?id=<%= coupons[i]._id %>';
+										}
+									})
+								}
+							</script>
+							<% } %>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%- include('../layouts/footer.ejs') %>

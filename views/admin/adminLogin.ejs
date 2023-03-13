@@ -1,0 +1,40 @@
+<%- include('../layouts/header.ejs') %>
+
+    <section class="vh-100 gradient-custom py-2"
+        style="background:url(https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700366485.jpg); background-size: cover;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="backdrop-filter: blur(0px);">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body py-5 text-center border-5">
+                            <form class="mb-md-5 mt-md-4 pb-5" action="" method="post">
+                                <h2 class="fw-bold mb-2 text-uppercase">Admin Login</h2>
+                                <div class="d-flex justify-content-center align-items-center mt-2">
+                                    <% if(typeof message !=='undefined' ){ %>
+                                        <h5 style="color: red;">
+                                            <%= message %>
+                                        </h5>
+                                        <% } %>
+                                </div>
+                                <p class="text-white-50 mb-3">Please enter email and password!</p>
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label" for="typeEmailX">Email</label>
+                                    <input type="text" class="form-control form-control-lg bg-transparent text-white"
+                                       name="email" placeholder="Enter phone" />
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label" for="typePasswordX">Password</label>
+                                    <input type="password" id="typePasswordX"
+                                        class="form-control form-control-lg bg-transparent text-white" name="password"
+                                        placeholder="Enter password" required />
+                                </div>
+                                <button class="btn btn-outline-light btn-lg px-5 mt-5" type="submit"
+                                    value="Login">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('../layouts/footer.ejs') %>

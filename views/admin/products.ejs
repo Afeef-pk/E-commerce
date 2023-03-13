@@ -1,0 +1,109 @@
+<%- include('../layouts/header.ejs') %>
+
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i> Customers</a>
+		<a href="/admin/product_manage" id="current-list-item" class="icon-a"><i
+				class="fa fa-shopping-cart icons"></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" class="icon-a"><i class="fa fa-shopping-bag icons"></i> Orders</a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Products</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Products</span>
+			</div>
+
+			<div class="col-div-6">
+				<div class="profile">
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="col-div-8">
+			<div class="box-8">
+				<div class="content-box">
+					<button class="btn btn-primary "><a href="/admin/new_product/"
+							style="text-decoration: none; color: #ddd;">Add New Product</a></button>
+					<br><br>
+					<table id="paginationTable">
+						<thead>
+						<tr>
+							<th>No</th>
+							<th> Name</th>
+							<th>Product</th>
+							<th>MRP</th>
+							<th>Discount Price</th>
+							<th>Category</th>
+							<th>Stock</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+						<tbody>
+							<% if (product.length> 0){
+								for (let i=0 ; i<product.length ; i++){ %>
+									<tr>
+										<td>
+											<%= i+1 %>
+										</td>
+
+										<td>
+											<%= product[i].name %>
+										</td>
+
+										<td>
+											<img src="/images/<%= product[i].image[0] %>" alt=""
+												style="height: 100px; width: 100px;">
+										</td>
+<td>₹ <%= product[i].mrp %></td>
+										<td>
+											₹ <%= product[i].price %>
+										</td>
+
+										<%if (product[i].category == null) {%>
+											<td></td>
+									<%	} else {%>
+										<td>
+											<%= product[i].category.categoryName %>
+										</td>
+										<%}%>
+										
+										<td>
+											<%= product[i].stock %>
+										</td>
+
+										<% if(!product[i].disabled){ %>
+											<td style="color: chartreuse;">
+												Active
+											</td>
+											<% }else{ %>
+												<td style="color: rgb(255, 0, 0);">
+													Disabled
+												</td>
+												<% }%>
+
+												<td><a href="/admin/view_product?id=<%= product[i]._id  %>"><button
+													class="btn btn-primary">view</button></a></td>	
+									</tr>
+									<% } } %>					
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	
+
+	<%- include('../layouts/footer.ejs') %>

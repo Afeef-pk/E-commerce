@@ -1,0 +1,80 @@
+<%- include('../layouts/header.ejs') %>
+
+	<div id="mySidenav" class="sidenav">
+		<p class="logo">NEWLOOK FASHIONS</p>
+		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+		<a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i> Customers</a>
+		<a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart  icons"></i> Products</a>
+		<a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+		<a href="/admin/orders" id="current-list-item" class="icon-a"><i
+				class="fa fa-shopping-bag icons current-list-item"></i> Orders </a>
+		<a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+		<a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+	</div>
+
+	<div id="main">
+		<div class="head">
+			<div class="col-div-6">
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ ORDERS</span>
+				<span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ ORDERS</span>
+			</div>
+			<div class="col-div-6">
+				<div class="profile">
+					<img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+						class="pro-img" />
+					<p>ADMIN<span></span></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		
+		<div class="col-div-8">
+			<div class="box-8">
+				<div class="content-box">
+					<table id="paginationTable">
+						<thead>
+						<tr>
+							<th>No</th>
+							<th>Customer Name</th>
+							<th>Order id</th>
+							<th>Total</th>
+							<th>Payment Status</th>
+							<th>Order Status</th>
+							<th>View Details</th>
+						</tr>
+					</thead>
+						<tbody>
+							<% for (let i=0 ; i<orders.length ; i++){ %>
+								<tr>
+									<td>
+										<%= [i+1] %>
+									</td>
+									<td>
+										<%= orders[i].userID.name %>
+									</td>
+									<td>
+										<%= orders[i]._id %>
+									</td>
+									<td>
+										₹ <%= orders[i].Total %>
+									</td>
+									<td>
+										<%= orders[i].paymentStatus %>
+									</td>
+									<td>
+										<%= orders[i].orderStatus %>
+									</td>
+									<td>
+										<a href="/admin/view_order?id=<%= orders[i]._id  %>"><button
+												class="btn btn-primary">view</button></a>
+									</td>
+								</tr>
+								<% } %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%- include('../layouts/footer.ejs') %>

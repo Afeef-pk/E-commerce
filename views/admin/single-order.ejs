@@ -1,0 +1,231 @@
+<%- include('../layouts/header.ejs') %>
+
+        <div id="mySidenav" class="sidenav">
+            <p class="logo">NEWLOOK FASHIONS</p>
+            <a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
+            <a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+            <a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons "></i> Customers</a>
+            <a href="/admin/product_manage" class="icon-a"><i class="fa fa-shopping-cart icons "></i>Products</a>
+            <a href="/admin/category_manage" class="icon-a"><i class="fa fa-list icons"></i> Category</a>
+            <a href="/admin/orders" class="icon-a" id="current-list-item"><i
+                    class="fa fa-shopping-bag icons current-list-item"></i> Orders</a>
+            <a href="/admin/coupons" class="icon-a"><i class="fa fa-window-maximize icons"></i> Coupons</a>
+            <a href="/admin/logout" class="icon-a"><i class="fa fa-user icons"></i> Logout</a>
+        </div>
+
+        <div id="main">
+
+            <div class="head">
+                <div class="col-div-6">
+                    <span style="font-size:30px;cursor:pointer; color: white;" class="nav">☰ Orders</span>
+                    <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">☰ Orders</span>
+                </div>
+
+                <div class="col-div-6">
+                    <div class="profile">
+
+                        <img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+                            class="pro-img" />
+                        <p>ADMIN<span></span></p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="clearfix"></div>
+            <br />
+
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Orders</a></li>
+                                    <li class="breadcrumb-item"><a href="/admin/orders">
+                                            <%= orderData.userID.name %>
+                                        </a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Order</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Customer Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0 text-black">
+                                                <%= orderData.userID.name %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Order ID</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0">
+                                                <%= orderData._id %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Order Date</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0">
+                                                <%= orderData.orderDate %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Products</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0">
+                                                <% orderData.products.forEach(element=> { %>
+                                                    <%= element.name %> x <%= element.quantity %>, <br>
+                                                            <% }); %>
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Shipping Address</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0">
+                                                <%= address.name %>,
+                                                    <%= address.pincode %>,
+                                                        <%= address.landmark %>,
+                                                            <%= address.address %>,
+                                                                <%= address.mobile %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Total Amount</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0">
+                                                <%= orderData.Total %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Payment Method</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="fw-bold mb-0">
+                                                <%= orderData.paymentMethod %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <form action="" method="post">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Payment Status</p>
+                                            </div>
+                                            <% if (orderData.paymentStatus=='completed' ||
+                                                orderData.orderStatus=='Returned' ) {%>
+                                                <div class="col-sm-9">
+                                                    <p class="fw-bold mb-0">
+                                                        <%= orderData.paymentStatus %>
+                                                    </p>
+                                                </div>
+                                                <% } else {%>
+                                                   
+                                                    <div class="col-sm-9">
+                                                    <p class="fw-bold mb-0">
+                                                        Pending
+                                                    </p>
+                                                </div>
+                                                    <% } %>
+
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Order Status</p>
+                                            </div>
+                                            <% if (orderData.orderStatus=='Cancelled' ) { %>
+                                                <div class="col-sm-9">
+                                                    <p class="fw-bold mb-0">
+                                                        User Cancelled
+                                                    </p>
+                                                </div>
+                                                <% } else if(orderData.orderStatus=='Delivered' ||
+                                                    orderData.orderStatus=='Return Processing' ||  orderData.orderStatus=='Returned'){%>
+                                                    <div class="col-sm-9">
+                                                        <p class="fw-bold mb-0">
+                                                            <%= orderData.orderStatus %>
+                                                        </p>
+                                                    </div>
+                                                    <% }else{%>
+                                                        <div class="col-sm-9">
+                                                            <p class="fw-bold mb-0">
+                                                                <select id="lang" name="orderStatus">
+                                                                    <option value="<%= orderData.orderStatus %>">
+                                                                        <%= orderData.orderStatus %>
+                                                                    </option>
+                                                                    <option value="Shipped">Shipped </option>
+                                                                    <option value="Out for Delivery">Out for Delivery
+                                                                    </option>
+                                                                    <option value="Delivered">Delivered </option>
+                                                                </select>
+                                                            </p>
+                                                        </div>
+                                                        <% } %>
+
+                                        </div>
+                                        <% if (orderData.orderStatus=='Return Processing') {%>
+                                            <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Return </p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="fw-bold mb-0">
+                                                    <select id="lang" name="return">
+                                                        <option value="true">Approve </option>
+                                                        <option value="false">Reject </option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                        </div>
+                                       <% }%>
+                                        
+                                        <br>
+                                        <div class="d-flex  justify-content-center"><button
+                                                class="btn btn-success d-flex jus" type="submit">Save</button></div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+    <%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,365 @@
+<%- include('../layouts/userHeader.ejs') %>
+    <!-- Header -->
+    <header class="header-v4">
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!-- Topbar -->
+            <div class="top-bar">
+                <div class="content-topbar flex-sb-m h-full container">
+                    <div class="left-top-bar">
+                        Free shipping for standard order over ₹ 1000
+                    </div>
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="/profile" class="flex-c-m trans-04 p-lr-25">
+                            My Account
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop container">
+                    <!-- Logo desktop -->
+                    <a href="/" class="logo">
+                        <img src="assets/images/icons/logo-01.png" alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        <ul class="main-menu">
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/shop">Shop</a>
+                            </li>
+                            <li>
+                                <a href="/cart">Cart</a>
+                            </li>
+                            <li>
+                                <a href="/contact">Contact</a>
+                            </li>
+                            <li class="active-menu">
+                                <a href="/profile">My Account</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/profile">Profile</a></li>
+                                    <li><a href="/orders">Orders</a></li>
+                                    <li><a href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Icon header -->
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                        <% if(!userCart ){ %>
+                            <a href="/cart"
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                                data-notify="0">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </a>
+                            <% } else { %>
+                                <a href="/cart"
+                                    class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                                    data-notify="<%= userCart.products.length %>">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </a>
+                                <% } %>
+
+                                    <% if(!wishlist ){ %>
+                                        <a href="/wishlist"
+                                            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                                            data-notify="0">
+                                            <i class="zmdi zmdi-favorite-outline"></i>
+                                        </a>
+                                        <% } else { %>
+                                            <a href="/wishlist"
+                                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                                                data-notify="<%= wishlist.products.length %>">
+                                                <i class="zmdi zmdi-favorite-outline"></i>
+                                            </a>
+                                            <% } %>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="/"><img src="assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                <% if(!userCart ){ %>
+                    <a href="/cart">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+                            data-notify="0">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </div>
+                    </a>
+                    <% } else { %>
+                        <a href="/cart">
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+                                data-notify="<%= userCart.products.length %>">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </div>
+                        </a>
+                        <% } %>
+
+                            <% if(!wishlist ){ %>
+                                <a href="/wishlist"
+                                    class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+                                    data-notify="0">
+                                    <i class="zmdi zmdi-favorite-outline"></i>
+                                </a>
+                                <% } else { %>
+                                    <a href="/wishlist"
+                                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+                                        data-notify="<%= wishlist.products.length %>">
+                                        <i class="zmdi zmdi-favorite-outline"></i>
+                                    </a>
+                                    <% } %>
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+            <ul class="topbar-mobile">
+                <li>
+                    <div class="left-top-bar">
+                        Free shipping for standard order over Rs 1000
+                    </div>
+                </li>
+            </ul>
+            <ul class="main-menu-m">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/shop">Shop</a>
+                </li>
+                <li>
+                    <a href="/cart">Cart</a>
+                </li>
+                <li>
+                    <a href="/contact">Contact</a>
+                </li>
+                <li>
+                    <a href="/profile">My Account</a>
+                    <ul class="sub-menu-m">
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/orders">Orders</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>My Account</h4>
+                        <div class="breadcrumb__links">
+                            <a href="/">Home</a>
+                            <a href="/profile">Profile</a>
+                            <a href="/usraddress">Saved Address</a>
+                            <span>
+                                Edit Address
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <div class="container">
+        <div class="main-body">
+            <br>
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                    class="rounded-circle" width="150">
+                                <div class="mt-3">
+                                    <h4>
+                                        <%= user.name %>
+                                    </h4>
+                                    <p class="text-secondary mb-1">
+                                        <%= user.email %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <i class="bi bi-cart-check-fill"></i>
+                                <a href="/orders">
+                                    <h6 class="mb-0">Your Orders</h6>
+                                </a>
+                                <span class="text-secondary"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <i class="bi bi-folder-plus"></i>
+                                <a href="/usraddress">
+                                    <h6 class="mb-0">Saved address</h6>
+                                </a>
+                                <span class="text-secondary"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <form action="" method="post">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Name</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0 text-black"> <input type="text" id="name"
+                                                            name="name" required value="<%= editingAddress.name %>">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Pincode</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0"> <input type="text" name="pincode"
+                                                            id="pincode" required value="<%= editingAddress.pincode %>">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">LandMark</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0"> <input type="text" name="landmark"
+                                                            id="landmark" required
+                                                            value="<%= editingAddress.landmark %>"></p>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Address</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0"> <input type="text" name="address"
+                                                            id="address" required value="<%= editingAddress.address %>">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Mobile </p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0"> <input type="text" name="phone"
+                                                            id="mobile" required value="<%= editingAddress.mobile %>">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <input type="hidden" name="user_id" value="<%= editingAddress._id %>">
+                                            <div class="d-flex  justify-content-center">
+                                                <button class="btn btn-dark d-flex jus" type="submit">Update
+                                                    Address</button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       document.getElementById("name").addEventListener("input", function () {
+      var Uname = document.getElementById("name").value;
+      const regex = /^[a-zA-Z ]+$/;
+      if (Uname.trim() == "") {
+        document.getElementById("name").setCustomValidity("Name cannot be null");
+      }else if(!regex.test(Uname)){
+        document.getElementById("name").setCustomValidity("Invalid name. Please enter only letters and spaces");
+      }   else {
+        document.getElementById("name").setCustomValidity("");
+      }
+    });
+        document.getElementById("pincode").addEventListener("input", function () {
+            var pincode = document.getElementById("pincode").value;
+            if (isNaN(pincode)) {
+                document.getElementById("pincode").setCustomValidity("Pincode Can't be a String");
+            } else if (pincode.trim().length < 6) {
+                document.getElementById("pincode").setCustomValidity("Pincode must be 6 digits");
+            } else {
+                document.getElementById("pincode").setCustomValidity("");
+            }
+        });
+
+        document.getElementById("landmark").addEventListener("input", function () {
+            var landmark = document.getElementById("landmark").value;
+            if (landmark.trim() == "") {
+                document.getElementById("landmark").setCustomValidity("landmark cannot be null");
+            } else {
+                document.getElementById("landmark").setCustomValidity("");
+            }
+        });
+
+        document.getElementById("address").addEventListener("input", function () {
+            var address = document.getElementById("address").value;
+            if (address.trim() == "") {
+                document.getElementById("address").setCustomValidity("address cannot be null");
+            } else {
+                document.getElementById("address").setCustomValidity("");
+            }
+        });
+        document.getElementById("mobile").addEventListener("input", function () {
+            var mobilenumber = document.getElementById("mobile").value;
+            if (isNaN(mobilenumber)) {
+                document.getElementById("mobile").setCustomValidity("Mobile Number Can't be a String");
+            } else if (mobilenumber.trim().length < 10) {
+                document.getElementById("mobile").setCustomValidity("Mobile Number must be 10 digits");
+            } else if (mobilenumber.trim().length > 10) {
+                document.getElementById("mobile").setCustomValidity("Mobile Number can't br greater than 10 digits");
+            } else {
+                document.getElementById("mobile").setCustomValidity("");
+            }
+        });
+    </script>
+    <%- include('../layouts/userFooter.ejs') %>

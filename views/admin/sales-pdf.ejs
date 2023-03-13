@@ -1,0 +1,50 @@
+<% if (startDate != '' && endDate != '') {%>
+    <h1>Sales Report From <%= startDate %> To <%= endDate %> </h1>
+<% } else { %>
+    <h1>Sales Report of All delivered Orders</h1>
+<% } %>
+
+<table id="paginationTable" width="100%" style="text-align:center;">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+            <th>Products</th>
+            <th>Total</th>
+            <th>Payment Status</th>
+        </tr>
+    </thead>
+
+    <tbody width="100%">
+        <% if (recentOrders.length> 0){
+            for (let i=0 ; i<recentOrders.length ; i++){ %>
+                <tr>
+                    <td>
+                        <%= i+1 %>
+                    </td>
+                    <td>
+                        <%= recentOrders[i].userID.name %>
+                    </td>
+                    <td>
+                        <%= recentOrders[i].orderDate %>
+                    </td>
+                    <td>
+                        <% recentOrders[i].products.forEach(element=> {%>
+                            <%= element.name %> x <%= element.quantity %>,
+                                    <br>
+                                    <% });%>
+                    </td>
+                    <td>
+                        <%= recentOrders[i].Total %>
+                    </td>
+                    <td>
+                        <%= recentOrders[i].paymentStatus %>
+                    </td>
+                </tr>
+                <% } }%>
+    </tbody>
+</table>
+<div class="text-right" >
+    <h3 style="text-align: right;">Total Sales : Rs <%= total %></h3>
+    </div>

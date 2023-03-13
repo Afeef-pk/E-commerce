@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Look </title>
+
+  <link rel="shortcut icon" type="image/png" href="/assets/images/icons/fav.png">
+  <link rel="stylesheet" href="/stylesheet/loginstyle.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <!-- Section: Design Block -->
+  <section class="background-radial-gradient overflow-hidden ">
+
+    <div class="container px-4  px-md-5 text-center text-lg-start my-5">
+      <div class="row gx-lg-5 align-items-center mb-5">
+        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+          <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+            Welcome to <br />
+            <span style="color: hsl(218, 81%, 75%)">NEW LOOK FASHIONS</span>
+          </h1>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+          <div class="card bg-glass">
+            <div class="card-body px-4 py-5 px-md-5">
+              <form action="" method="POST" id="registerForm">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+
+                  <h1 class="mb-3 h3">Register</h1>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                      <input type="text" name="name" id="fullName" class="form-control" required />
+                      <label class="form-label" for="form3Example2">Full Name</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-3">
+                  <input type="email" name="email" id="ema" class="form-control" required />
+                  <label class="form-label" for="form3Example3">Email address</label>
+                </div>
+
+                <!-- Mobile input -->
+                <div class="form-outline mb-3">
+                  <input type="text" name="phone" id="mobile" class="form-control" required />
+                  <label class="form-label" for="form3Example3">Mobile No</label>
+                </div>
+                
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                  <input type="password" name="password" class="form-control" id="password" required />
+                  <label class="form-label" for="form3Example4">Password</label>
+                </div>
+               
+                <!-- confirm Password input -->
+                <div class="form-outline mb-3">
+                  <input type="password" class="form-control" id="password2" required />
+                  <label class="form-label" for="form3Example4">Confirm Password</label>
+                </div>
+               
+                <% if(typeof exist !=='undefined' ){ %>
+                  <div class="alert alert-danger">
+                    <strong>
+                      <%= exist %>
+                    </strong>
+                  </div>
+                  <% } %>
+                    <% if(typeof message !=='undefined' ){ %>
+                      <div class="alert alert-success">
+                        <strong>
+                          <%= message %>
+                        </strong>
+                      </div>
+                      </h5>
+                      <% } %>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-3">
+                          SIGN UP
+                        </button>
+
+                        <!--Login buttons -->
+                        <div class="text-center">
+                          <p>Already have an account? <a href="/login">Login</a></p>
+                        </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section: Design Block -->
+  <script>
+ document.getElementById("fullName").addEventListener("input", function () {
+      var Uname = document.getElementById("fullName").value;
+      const regex = /^[a-zA-Z ]+$/;
+      if (Uname.trim() == "") {
+        document.getElementById("fullName").setCustomValidity("Name cannot be null");
+      }else if(!regex.test(Uname)){
+        document.getElementById("fullName").setCustomValidity("Invalid name. Please enter only letters and spaces");
+      }   else {
+        document.getElementById("fullName").setCustomValidity("");
+      }
+    });
+    document.getElementById("ema").addEventListener("input" , function(){
+      var email = document.getElementById("ema").value
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if (!emailRegex.test(email)) {
+        document.getElementById("ema").setCustomValidity("Please enter a valid Email");
+      } else {
+        document.getElementById("ema").setCustomValidity("");
+      }
+    })
+    document.getElementById("mobile").addEventListener("input", function () {
+      var mobilenumber = document.getElementById("mobile").value;
+      if (isNaN(mobilenumber)) {
+        document.getElementById("mobile").setCustomValidity("Mobile Number Can't be a String");
+      } else if (mobilenumber.trim().length < 10) {
+        document.getElementById("mobile").setCustomValidity("Mobile number less than 10 digits");
+      } else if (mobilenumber.trim().length > 10) {
+        document.getElementById("mobile").setCustomValidity("Mobile number greater than 10 digits");
+      } else {
+        document.getElementById("mobile").setCustomValidity("");
+      }
+    });
+    document.getElementById("password").addEventListener("input", function () {
+      var password = document.getElementById("password").value
+      if (password.trim() == "") {
+        document.getElementById("password").setCustomValidity("Password Cannot be null");
+      } else if (password.trim().length < 6) {
+        document.getElementById("password").setCustomValidity("Password must 6 letters");
+      } else {
+        document.getElementById("password").setCustomValidity("");
+      }
+    });
+
+    document.getElementById("password2").addEventListener("input", function () {
+      var password = document.getElementById("password").value.trim();
+      var password2 = document.getElementById("password2").value.trim();
+      if (password != password2) {
+        document.getElementById("password2").setCustomValidity("Passwords do not match.");
+      } else {
+        document.getElementById("password2").setCustomValidity("");
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+</html>
