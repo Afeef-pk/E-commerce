@@ -9,7 +9,6 @@ const nodemailer = require("nodemailer")
 const { ObjectId } = require('mongodb')
 const Razorpay = require('razorpay')
 const crypto = require('crypto')
-const { log } = require('console')
 const instance = new Razorpay({
     key_id: process.env.razorpayKeyId,
     key_secret: process.env.razorpayKeySecret,
@@ -31,89 +30,68 @@ const loadLandingPage = async (req, res, next) => {
 
 const loadProductPage = async (req, res, next) => {
     try {
-        const categoryData = await Category.find()
-        const userData = req.session.user_id
+        const categoryData = await Category.find({})
         const userCart = await Cart.findOne({ userID: req.session.user_id })
         const wishlist = await Wishlist.findOne({ userID: req.session.user_id })
-        let search = ''
-        if (req.query.search) {
-            search = req.query.search
+        const userData = req.session.user_id
+        const category = (req.query.categoryId)
+        const search = (req.query.search) || "";
+        const sort = (req.query.sort) || "";
+        let isRender = false;
+        if (req.query.isRender) {
+            isRender = true
         }
-        let page = 1
-        if (req.query.page) {
-            page = req.query.page
-            var nextPage = parseInt(page) + 1
-            var previousPage = page - 1
-        }
-        const limit = 8
-        var products = await Product.find({
+        const searchData = new String(search).trim()
+        const query = {
             disabled: false,
-            name: { $regex: '.*' + search + '.*', $options: 'i' }
-        }).populate('category').limit(limit * 1).skip((page - 1) * limit).exec()
-
-        const count = await Product.find({ disabled: false }).countDocuments()
-        res.render('products', {
-            products,
-            categoryData,
-            userCart,
-            wishlist,
-            userData,
-            totalPages: Math.ceil(count / limit),
-            previousPage: previousPage,
-            currentPage: page,
-            nextPage: nextPage
-        })
-    } catch (error) {
-        console.log(error.message)
-        next(error)
-    }
-}
-
-const filter = async (req, res, next) => {
-    try {
-        let filteredProductes
-        var page = req.body.pageNumber
-        const limit = 8
-        const categorieId = req.body.checked
-        if (categorieId) {
-            if (req.body.sortValue == 1) {
-                filteredProductes = await Product.find({ disabled: false, category: { $in: categorieId } })
-                    .sort({ price: 1 })
-                    .populate('category')
-                    .limit(limit * 1).skip((page - 1) * limit).exec()
-            } else if (req.body.sortValue == -1) {
-                filteredProductes = await Product.find({ disabled: false, category: { $in: categorieId } })
-                    .sort({ price: -1 })
-                    .populate('category')
-                    .limit(limit * 1).skip((page - 1) * limit).exec()
-            } else {
-                filteredProductes = await Product.find({ disabled: false, category: { $in: categorieId } })
-                    .populate('category')
-                    .limit(limit * 1).skip((page - 1) * limit).exec()
-                var count = await Product.find({ disabled: false, category: { $in: categorieId } }).countDocuments()
-            }
-        } else if (!categorieId && req.body.sortValue) {
-            if (req.body.sortValue == 1) {
-                filteredProductes = await Product.find({ disabled: false })
-                    .sort({ price: 1 })
-                    .populate('category')
-                    .limit(limit * 1).skip((page - 1) * limit).exec()
-            } else {
-                filteredProductes = await Product.find({ disabled: false })
-                    .sort({ price: -1 })
-                    .populate('category')
-                    .limit(limit * 1).skip((page - 1) * limit).exec()
-            }
-        } else {
-            filteredProductes = await Product.find({ disabled: false })
-                .populate('category')
-                .limit(limit * 1).skip((page - 1) * limit).exec()
         }
-        let totalPages = Math.ceil(count / limit)
-        res.json({ filteredProductes, totalPages })
+        let sortQuery = null
+        if (sort == '-1') {
+            sortQuery = { price: -1 }
+        } else if (sort == '1') {
+            sortQuery = { price: 1 }
+        }
+        if (search) {
+            query["$or"] = [
+                { name: { $regex: ".*" + searchData + ".*", $options: "i" } }
+            ];
+        }
+        if (category) {
+            query["$or"] = [
+                { category: { $in: category } }
+            ];
+        }
+        const product = await Product.find(query).sort(sortQuery)
+        const productsPerPage = 8;
+        const page = req.query.page || 1;
+        const startIndex = (page - 1) * productsPerPage;
+        const endIndex = startIndex + productsPerPage;
+        const products = product.slice(startIndex, endIndex);
+        const totalPages = Math.ceil(product.length / productsPerPage);   
+        if (isRender == true) {
+            res.json({
+                products,
+                totalPages,
+                currentPage: parseInt(page),
+                product
+            })
+        } else {
+            res.render('products', {
+                products,
+                totalPages,
+                currentPage: parseInt(page, 10),
+                product,
+                userCart,
+                wishlist,
+                categoryData,
+                userData
+            });
+        }
+
     } catch (error) {
         console.log(error.message)
         next(error)
+
     }
 }
 
@@ -759,7 +737,6 @@ const submitContactForm = async (req, res, next) => {
 module.exports = {
     loadLandingPage,
     loadProductPage,
-    filter,
     loadSingleProduct,
 
     loadWishList,

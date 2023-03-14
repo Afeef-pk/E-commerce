@@ -212,8 +212,8 @@
 			<div class="flex-w flex-sb-m p-b-25">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<a href="/shop"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
-						All Products
-					</button></a>
+							All Products
+						</button></a>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -239,7 +239,7 @@
 							<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 								<i class="zmdi zmdi-search"></i>
 							</button>
-							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" id="searchText"
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" id="searchField"
 								placeholder="Search">
 						</div>
 					</form>
@@ -262,7 +262,7 @@
 									<li class="p-b-6">
 										<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
 											<input type="checkbox" id="<%= categoryData[i]._id %>" name="priceFilter"
-												onclick="filterSort()"
+												onclick="toAjax()"
 												style="display: inline-block; vertical-align: middle; margin-right: 5px;">
 											<%= categoryData[i].categoryName %>
 										</span>
@@ -278,7 +278,7 @@
 							<ul>
 								<li class="p-b-6">
 									<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
-										<input type="radio" name="priceFilter" onclick="filterSort()"
+										<input type="radio" name="priceFilter" onclick="toAjax()"
 											style="display: inline-block; vertical-align: middle; margin-right: 5px;"
 											value="1">
 										Price: Low to High
@@ -287,7 +287,7 @@
 
 								<li class="p-b-6">
 									<span class="filter-link stext-106 trans-04" style="cursor: pointer;">
-										<input type="radio" name="priceFilter" onclick="filterSort()"
+										<input type="radio" name="priceFilter" onclick="toAjax()"
 											style="display: inline-block; vertical-align: middle; margin-right: 5px;"
 											value="-1">
 										Price: High to Low
@@ -305,16 +305,15 @@
 				</div>
 			</div>
 			<% if ( products.length>0 ) { %>
-			<div class="row isotope-grid" id="productDiv">
-				
+				<div class="row isotope-grid" id="productDiv">
 					<% for(let i=0 ; i < products.length ; i++){ %>
 						<!-- Products list -->
 						<div
 							class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <%= products[i].category.categoryName %>">
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<a href="/product?id=<%= products[i]._id %>"><img src="/images/<%= products[i].image[0] %>" alt="IMG-PRODUCT"></a>
-
+									<a href="/product?id=<%= products[i]._id %>"><img
+											src="/images/<%= products[i].image[0] %>" alt="IMG-PRODUCT"></a>
 									<% if ( products[i].stock>0 ) { %>
 										<a href="/add-cart?id=<%=  products[i]._id %>"
 											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
@@ -342,56 +341,64 @@
 							</div>
 						</div>
 						<% }%>
+				</div>
+				<% }else{ %>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body cart">
+								<div class="col-sm-12 empty-cart-cls text-center">
+									<img src="/assets/images/icons/pngwing.com.png" width="130" height="130"
+										class="img-fluid mb-4 mr-3">
+									<h3><strong>Product Not Found</strong></h3><br>
+									<a href="/shop" class="btn btn-dark cart-btn-transform m-3" data-abc="true">continue
+										shopping</a>
+								</div>
+							</div>
+						</div>
 					</div>
-							<% }else{ %>
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-body cart">
-													<div class="col-sm-12 empty-cart-cls text-center">
-														<img src="/assets/images/icons/pngwing.com.png" width="130" height="130"
-															class="img-fluid mb-4 mr-3">
-														<h3><strong>Product Not Found</strong></h3><br>
-														<a href="/shop" class="btn btn-dark cart-btn-transform m-3" data-abc="true">continue
-															shopping</a>
-													</div>
-												</div>
-											</div>
-										</div>
-								<br><br>
-								<% }%>
+					<br><br>
+					<% }%>
 
-			<nav aria-label="...">
-				<ul class="pagination justify-content-center">
-					<!-- <% if (currentPage==1) { %>
-						<li class="page-item disabled">
-							<a class="page-link" href="#" tabindex="-1">Previous</a>
-						</li>
-						<% } else { %>
-							<% } %> -->
+						<nav aria-label="..." id="pagination">
+							<ul class="pagination justify-content-center">
+								<% if (currentPage==1) { %>
+									<li class="page-item disabled">
+										<a class="page-link" tabindex="-1">Previous</a>
+									</li>
+									<% } else { %>
+										<li class="page-item">
+											<a class="page-link" onclick="previous()"
+												style="color: blue; cursor: pointer;" tabindex="-1">Previous</a>
+										</li>
+										<% } %>
 
-							<li class="page-item" >
-								<a class="page-link" id="previous" tabindex="-1">Previous</a>
-							</li>
-								<% for(let j=1 ; j <=totalPages ; j++) { %>
-											<li class="page-item ">
-												<a class="page-link" style="cursor: pointer;" onclick="pagination('<%= j %>')">
-													<%= j %>
-												</a>
-											</li>
-												<% } %>
-													<!-- <% if (currentPage==totalPages) { %>
-														<li class="page-item disabled">
-															<a class="page-link" href="#">Next</a>
+											<% for(let j=1 ; j <=totalPages ; j++) { %>
+												<% if (j==currentPage) { %>
+													<li class="page-item active">
+														<a class="page-link" href="#" id="currentPageNo">
+															<%= j %>
+														</a>
+													</li>
+													<% } else { %>
+														<li class="page-item">
+															<a class="page-link" onclick="toAjax('<%= j %>')" style="cursor: pointer;">
+																<%= j %>
+															</a>
 														</li>
-														<% } else { %>
-															<% } %> -->
-															<li class="page-item">
-																<a class="page-link"
-																href="" >Next</a>
-															</li>
-															
-				</ul>
-			</nav>
+														<% } %>
+															<% } %>
+																<% if (currentPage==totalPages) { %>
+																	<li class="page-item disabled">
+																		<a class="page-link">Next</a>
+																	</li>
+																	<% } else { %>
+																		<li class="page-item">
+																			<a class="page-link" onclick="next()"
+																				style="color: blue; cursor: pointer;">Next</a>
+																		</li>
+																		<% } %>
+							</ul>
+						</nav>
 		</div>
 	</div>
 
@@ -404,40 +411,47 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-let pageNumber;
-function pagination(no){
-	pageNumber=no
-	filterSort()
-}
+		function next() {
+			var nextPageNo = parseInt(document.getElementById("currentPageNo").innerHTML.trim()) + 1;
+			toAjax(nextPageNo);
+		}
+		function previous() {
+			var previousPageNo = parseInt(document.getElementById("currentPageNo").innerHTML.trim()) - 1;
+			toAjax(previousPageNo);
+		}
+		var selectedValue;
+		let searchValue;
+		const searchInput = document.querySelector('#searchField')
+		searchInput.addEventListener('input', (event) => {
+			event.preventDefault()
+			const search = event.target.value
+			searchValue = search
+			toAjax()
+		})
+		const sortSelect = document.getElementById('sort');
+		sortSelect.addEventListener('change', (event) => {
+			selectedValue = event.target.value;
+			toAjax()
+		});
 
-// $('#previous').click(function(e) {
-// e.preventDefault()
-// console.log('dsf');
-// var currentPage = $('#current-page').text() 
-// console.log(currentPage);
-// var previousPage = parseInt(currentPage) - 1; 
-// if(previousPage >= 1) { 
-// 	pagination(previousPage);
-// }
-// });
-
-		function filterSort(clear) {
-			var categoryIds = [];
+		function toAjax(page) {
+			var categoryId = [];
 			$('input[type=checkbox][name=priceFilter]:checked').each(function () {
-				categoryIds.push($(this).attr('id'));
+				categoryId.push($(this).attr('id'));
 			});
-			var radioValue = $('input[type=radio][name=priceFilter]:checked').val();
+			var selectedValue = $('input[type=radio][name=priceFilter]:checked').val();
 			$.ajax({
-				url: '/filter',
-				method: 'post',
+				url: '/shop',
 				data: {
-					checked: categoryIds,
-					sortValue: radioValue,
-					pageNumber:pageNumber,
+					categoryId: categoryId,
+					sort: selectedValue,
+					page: page,
+					search: searchValue,
+					isRender: "true"
 				},
+				method: 'get',
 				success: (response) => {
-					let products = response.filteredProductes
-					let totalPages = response.totalPages
+					let products = response.products
 					let productHtml = "";
 					for (let i = 0; i < products.length; i++) {
 						productHtml += `
@@ -461,6 +475,41 @@ function pagination(no){
         `;
 					}
 					$("#productDiv").html(productHtml);
+					let currentPage = response.currentPage;
+					let totalPages = response.totalPages;
+					let paginationHTML = '';
+					paginationHTML += '<ul class="pagination justify-content-center">';
+					if (currentPage == 1) {
+						paginationHTML += '<li class="page-item disabled">';
+						paginationHTML += '<a class="page-link" tabindex="-1">Previous</a>';
+						paginationHTML += '</li>';
+					} else {
+						paginationHTML += '<li class="page-item">';
+						paginationHTML += '<a class="page-link" onclick="previous()" style="color: blue; cursor: pointer;" tabindex="-1">Previous</a>';
+						paginationHTML += '</li>';
+					}
+					for (let j = 1; j <= totalPages; j++) {
+						if (j == currentPage) {
+							paginationHTML += '<li class="page-item active">';
+							paginationHTML += '<a class="page-link" href="#" id="currentPageNo">' + j + '</a>';
+							paginationHTML += '</li>';
+						} else {
+							paginationHTML += '<li class="page-item">';
+							paginationHTML += '<a class="page-link" style="color: blue; cursor: pointer;" onclick="toAjax(\'' + j + '\')"> ' + j + '</a>' ;
+							paginationHTML += '</li>';
+						}
+					}
+					if (currentPage == totalPages) {
+						paginationHTML += '<li class="page-item disabled">';
+						paginationHTML += '<a class="page-link">Next</a>';
+						paginationHTML += '</li>';
+					} else {
+						paginationHTML += '<li class="page-item">';
+						paginationHTML += '<a class="page-link" onclick="next()" style="color: blue; cursor: pointer;">Next</a>';
+						paginationHTML += '</li>';
+					}
+					paginationHTML += '</ul>';
+					$('#pagination').html(paginationHTML);
 				}
 			})
 		}

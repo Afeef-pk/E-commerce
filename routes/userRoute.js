@@ -60,8 +60,6 @@ user_route.get('/delete_address',auth.isLogin,userController.deleteAddress)
 
 user_route.get('/shop',shopController.loadProductPage)
 
-user_route.post('/filter',shopController.filter)
-
 user_route.get('/product',shopController.loadSingleProduct)
 
 user_route.post('/add-wishlist',auth.isLogin ,shopController.addToWishList)

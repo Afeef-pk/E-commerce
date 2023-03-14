@@ -293,7 +293,7 @@
 							<div class="checkout__input__checkbox">
 								<label for="paypal">
 									UPI / Net Banking
-									<input type="radio" id="paypal" name="paymentMethod" value="online" required>
+									<input type="radio" id="paypal" name="paymentMethod" value="online" required checked>
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -376,22 +376,42 @@
 			var address = $('input[name=address]:checked').val()
 			var couponValue = $('input[name="couponcode"]').val()
 			event.preventDefault()
-			$.ajax({
-				url: '/checkout',
-				method: 'post',
-				data: {
-					paymentMethod: paymentMethod,
-					address: address,
-					couponValue: couponValue
-				},
-				success: (response) => {
-					if (response.Status) {
-						location.href = '/order_placed'
-					} else {
-						razorpayPayment(response.order)
+			console.log(paymentMethod);
+			if (address == undefined) {
+				swal({
+					title: "Please add a delivery address",
+					icon: "warning",
+					button: "OK",
+					content: {
+						element: "div",
+						attributes: {
+							style: "text-align: center;",
+						},
+					},
+					closeOnClickOutside: false,
+					closeOnEsc: false,
+					dangerMode: true,
+					html: true,
+				});
+
+			} else {
+				$.ajax({
+					url: '/checkout',
+					method: 'post',
+					data: {
+						paymentMethod: paymentMethod,
+						address: address,
+						couponValue: couponValue
+					},
+					success: (response) => {
+						if (response.Status) {
+							location.href = '/order_placed'
+						} else {
+							razorpayPayment(response.order)
+						}
 					}
-				}
-			})
+				})
+			}
 		}
 
 		function razorpayPayment(order) {

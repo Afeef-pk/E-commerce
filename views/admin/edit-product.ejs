@@ -3,7 +3,7 @@
 	<div id="mySidenav" class="sidenav">
 		<p class="logo">NEWLOOK FASHIONS</p>
 		<a href="/admin/dashboard" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
-		<a href="/admin/sales" class="icon-a" ><i class="fa fa-calendar icons "></i> Sales</a>
+		<a href="/admin/sales" class="icon-a"><i class="fa fa-calendar icons "></i> Sales</a>
 		<a href="/admin/user_manage" class="icon-a"><i class="fa fa-users icons"></i> Customers</a>
 		<a href="/admin/product_manage" id="current-list-item" class="icon-a"><i
 				class="fa fa-shopping-cart  current-list-item"></i> Products</a>
@@ -61,8 +61,8 @@
 											<p class="mb-0">MRP</p>
 										</div>
 										<div class="col-sm-9">
-											<p class="text-muted mb-0"> <input type="text" id="mrp" name="mrp"
-													required value="<%=product.mrp %>"> </p>
+											<p class="text-muted mb-0"> <input type="text" id="mrp" name="mrp" required
+													value="<%=product.mrp %>"> </p>
 										</div>
 									</div>
 									<br>
@@ -107,15 +107,33 @@
 										</div>
 										<div class="col-sm-9">
 											<input type="file" class="form-control" id="inputGroupFile02" name="image"
-												multiple onchange="previewImages(event)" >
-												<br>
+												multiple onchange="previewImages(event)">
+											<br>
 										</div>
 										<div id="image-preview-container">
 										</div>
 									</div>
+
+									<div class="form-group">
+										<label>Uploaded Images</label>
+										<div class="container">
+											<div class="row">
+												<% product.image.forEach((image)=>{ %>
+													<div class="col-md-2">
+														<div class="del-image-container">
+															<img src="/images/<%= image %>" alt="Image 1"
+																class="img-fluid">
+															<a href="/admin/deleteImg?img=<%= image %>&productId=<%= product._id %>"
+																class="delete-img-icon"><i class="fa fa-trash-o"
+																	style="font-size:20px;color:red"></i></a>
+														</div>
+													</div>
+													<% }) %>
+											</div>
+										</div>
+									</div>
+
 									<br>
-
-
 									<div class="row">
 										<div class="col-sm-3">
 											<p class="mb-0">Stock</p>
@@ -152,8 +170,7 @@
 	</div>
 
 	<script>
-
-function previewImages(event) {
+		function previewImages(event) {
 			const input = event.target;
 			const previewContainer = document.getElementById('image-preview-container');
 			previewContainer.innerHTML = '';
@@ -182,23 +199,27 @@ function previewImages(event) {
 		});
 
 		document.getElementById("mrp").addEventListener("input", function () {
-			var mrp = document.getElementById("mrp").value
-			if (mrp.trim() == "") {
-				document.getElementById("mrp").setCustomValidity("Price can't be Null");
+			var mrp = document.getElementById("mrp").value.trim()
+			if (mrp == "") {
+				document.getElementById("mrp").setCustomValidity("MRP can't be Null");
 			} else if (isNaN(mrp)) {
-				document.getElementById("mrp").setCustomValidity("Price Must be a Number");
-			} else {
+				document.getElementById("mrp").setCustomValidity("MRP Must be a Number");
+			}else if(mrp<0){
+				document.getElementById("mrp").setCustomValidity("MRP can't be a negative value");
+			}else {
 				document.getElementById("mrp").setCustomValidity("");
 			}
 		})
 
 		document.getElementById("price").addEventListener("input", function () {
-			var price = document.getElementById("price").value
-			if (price.trim() == "") {
+			var price = document.getElementById("price").value.trim()
+			if (price == "") {
 				document.getElementById("price").setCustomValidity("Price can't be Null");
 			} else if (isNaN(price)) {
-				document.getElementById("price").setCustomValidity("Price Must be a Number");
-			} else {
+				document.getElementById("price").setCustomValidity("Price must be a Number");
+			} else if(price<0){
+				document.getElementById("price").setCustomValidity("Price  can't be a negative value");
+			}else {
 				document.getElementById("price").setCustomValidity("");
 			}
 		})

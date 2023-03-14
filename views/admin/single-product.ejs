@@ -42,11 +42,8 @@
 								<li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
 								<li class="breadcrumb-item"><a href="/admin/product_manage">Product</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Producut Deatails</li>
-
 							</ol>
-
 						</nav>
-
 					</div>
 				</div>
 
@@ -97,6 +94,17 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
+										<p class="mb-0">MRP</p>
+									</div>
+									<div class="col-sm-9">
+										<p class="mb-0 text-black fw-bold">
+											<%= product.mrp %>
+										</p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
 										<p class="mb-0">Price</p>
 									</div>
 									<div class="col-sm-9">
@@ -112,13 +120,7 @@
 									</div>
 									<div class="col-sm-9">
 										<p class="mb-0 text-black fw-bold">
-											<%if (product.category == null) {%>
-												
-										<%	} else {%>
 											<%= product.category.categoryName %>
-											<%}%>
-											
-											
 										</p>
 									</div>
 								</div>

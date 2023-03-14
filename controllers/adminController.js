@@ -6,6 +6,8 @@ const Order = require('../models/orderModel')
 const ejs = require('ejs')
 const pdf = require('html-pdf')
 const fs = require('fs')
+const path = require('path')
+
 
 const loadAdminLogin = async (req, res, next) => {
     try {
@@ -95,6 +97,7 @@ const dateSaleFilter = async (req, res, next) => {
 
 const exportSalesPdf = async (req, res, next) => {
     try {
+        
         const startDate = req.body.salesFrom
         const endDate = req.body.salesTo
         if (req.body.salesFrom != '' && req.body.salesTo != '') {
@@ -253,14 +256,29 @@ const loadEditProduct = async (req, res, next) => {
     }
 }
 
+const imageDelete = async (req, res) => {
+    try {
+        const img = req.query.img;
+        const imageData = await Product.updateMany({ $pull: { image: { $in: [img] } } })
+        fs.unlink('./public/images/' + img, (err) => {
+            if (err) throw err;
+        });
+        if (imageData) {
+            res.redirect('/admin/edit_product?id=' + req.query.productId);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 const updateProduct = async (req, res, next) => {
     try {
         if (req.files.length > 0) {
-            let imageFile = []
-            for (let i = 0; i < req.files.length; i++) {
-                imageFile[i] = req.files[i].filename
-            }
-            const productData = await Product.findByIdAndUpdate({ _id: req.body.product_id }, { $set: { image: imageFile } })
+            const imageFileNames = req.files.map(file => file.filename)
+            const productData = await Product.findByIdAndUpdate(
+                { _id: req.body.product_id },
+                { $push: { image: { $each: imageFileNames } } }
+            )
         }
         const productData = await Product.findByIdAndUpdate({ _id: req.body.product_id },
             {
@@ -550,6 +568,7 @@ module.exports = {
     loadAddNewProduct,
     insertNewProduct,
     loadEditProduct,
+    imageDelete,
     updateProduct,
     deleteProduct,
 

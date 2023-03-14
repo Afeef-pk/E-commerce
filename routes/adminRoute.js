@@ -34,6 +34,8 @@ admin_route.get('/view_product', adminAuth.isLogin, adminController.loadProductD
 
 admin_route.get('/edit_product', adminAuth.isLogin, adminController.loadEditProduct)
 
+admin_route.get('/deleteImg', adminAuth.isLogin, adminController.imageDelete)
+
 admin_route.post('/edit_product', adminAuth.isLogin,upload.array ('image',3) ,adminController.updateProduct)
 
 admin_route.get('/delete_product', adminAuth.isLogin, adminController.deleteProduct)
