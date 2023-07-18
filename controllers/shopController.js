@@ -67,7 +67,7 @@ const loadProductPage = async (req, res, next) => {
         const startIndex = (page - 1) * productsPerPage;
         const endIndex = startIndex + productsPerPage;
         const products = product.slice(startIndex, endIndex);
-        const totalPages = Math.ceil(product.length / productsPerPage);   
+        const totalPages = Math.ceil(product.length / productsPerPage);
         if (isRender == true) {
             res.json({
                 products,
@@ -702,31 +702,35 @@ const loadContact = async (req, res, next) => {
 
 const submitContactForm = async (req, res, next) => {
     try {
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            requireTLS: true,
-            auth: {
-                user: process.env.email,
-                pass: process.env.emailPass
+        if (req.session.user_id) {
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false,
+                requireTLS: true,
+                auth: {
+                    user: process.env.email,
+                    pass: process.env.emailPass
+                }
+            })
+            const mailOptions = {
+                from: req.body.email,
+                to: process.env.email,
+                subject: req.body.email,
+                text: `Contact Form of Your Fashion Store ${req.body.msg} `
             }
-        })
-        const mailOptions = {
-            from: req.body.email,
-            to: process.env.email,
-            subject: req.body.email,
-            text: `Contact Form of Your Fashion Store ${req.body.msg} `
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    res.redirect('/contact')
+                } else {
+                    console.log("Email has been sent:- ", info.response);
+                }
+            })
+            let sts = true
+            res.json({ sts })
+        } else {
+            res.json({ sts:false })
         }
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                res.redirect('/contact')
-            } else {
-                console.log("Email has been sent:- ", info.response);
-            }
-        })
-        let sts = true
-        res.json({ sts })
     } catch (error) {
         console.log(error.message)
         next(error)
